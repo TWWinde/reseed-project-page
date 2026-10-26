@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="ReSeed restores diversity in few-step diffusion students by training a tiny bias adapter for the first denoising step while leaving the student backbone frozen.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ReSeed — A First-Step Bias Restores Lost Diversity">
+  <meta property="og:description" content="A lightweight first-step repair for few-step image and video generators.">
+  <meta property="og:image" content="assets/hero-diversity.webp">
+  <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="ReSeed home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>ReSeed<span class="brand-dot">.</span></span></a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#idea">The idea</a><a href="#method">Method</a><a href="#results">Results</a><a href="#examples">Examples</a><a href="#citation">Citation</a>
+      </nav>
+      <a class="nav-cta" href="#results">Explore results <span aria-hidden="true">↗</span></a>
+      <details class="mobile-menu"><summary aria-label="Open menu">Menu <span aria-hidden="true">☰</span></summary><nav aria-label="Mobile navigation"><a href="#idea">The idea</a><a href="#method">Method</a><a href="#results">Results</a><a href="#examples">Examples</a><a href="#citation">Citation</a></nav></details>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero shell">
+      <div class="eyebrow"><span class="eyebrow-line"></span> RESEARCH PROJECT <span class="eyebrow-separator">/</span> 2026</div>
+      <h1>A <em>first-step bias</em> restores lost diversity in diffusion model distillation.</h1>
+      <p class="hero-deck">ReSeed repairs an already distilled generator by training a tiny adapter for its first denoising step. The student backbone and its remaining steps stay frozen.</p>
+      <div class="authors" aria-label="Authors">Wenwu Tang <span>·</span> Dong Wang <span>·</span> Yun Cheng <span>·</span> Olga Saukh</div>
+      <p class="affiliations">Graz University of Technology · Swiss Data Science Center · Complexity Science Hub</p>
+      <div class="hero-actions"><a class="button button-primary" href="#method">How it works <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#examples">See matched-noise samples <span aria-hidden="true">↗</span></a></div>
+      <p class="availability"><span class="status-dot" aria-hidden="true"></span> Manuscript link will be added after the arXiv release.</p>
+      <figure class="hero-figure image-frame">
+        <div class="figure-topline"><span>01 / SAME PROMPT, MATCHED INITIAL NOISES</span><span>SD3.5-Medium · 25 seeds</span></div>
+        <a href="assets/hero-diversity.webp" target="_blank" rel="noopener" aria-label="Open the full SD3.5-Medium portrait comparison"><img src="assets/hero-diversity.webp" width="1800" height="650" alt="Three panels of 25 matched-seed portraits: a diverse teacher, a repetitive four-step DMD student, and the same student with diversity restored by ReSeed." fetchpriority="high"></a>
+        <figcaption>Same prompt and the same 25 noises in every panel. ReSeed broadens the four-step student's visible variation without changing its original weights.</figcaption>
+      </figure>
+    </section>
+
+    <section class="summary-band" aria-label="Paper at a glance"><div class="shell summary-grid">
+      <div><strong>4</strong><span>denoising steps<br>at inference</span></div>
+      <div><strong>0.00196%</strong><span>trainable parameters<br>for FLUX.1-dev</span></div>
+      <div><strong>+48.3%</strong><span>DINOv3 diversity<br>for FLUX.1-dev</span></div>
+      <div><strong>0</strong><span>extra inference<br>denoising steps</span></div>
+    </div></section>
+
+    <section id="idea" class="section shell">
+      <div class="section-heading"><div class="section-kicker">01 — THE OBSERVATION</div><h2>Where does the diversity go?</h2><p>Few-step distillation can make different initial noises converge to similar outputs. The paper traces this loss to the first, high-noise denoising interval.</p></div>
+      <div class="insight-layout">
+        <div class="insight-copy">
+          <div class="insight-rule"><span>01</span><div><h3>Replace only step one</h3><p>For a controlled SD3-Medium test, the teacher handles the student's first interval. The original student then completes steps two through four.</p></div></div>
+          <div class="insight-rule"><span>02</span><div><h3>Keep the remaining student unchanged</h3><p>DINOv3 diversity rises from <strong>0.2142 to 0.3117</strong>. The first replacement provides <strong>91%</strong> of the measured gain from replacing all early intervals.</p></div></div>
+          <div class="insight-rule"><span>03</span><div><h3>Learn a practical first-step repair</h3><p>The teacher replacement is a diagnostic: it uses extra teacher evaluations. ReSeed learns a small correction so inference still uses the same four student steps.</p></div></div>
+        </div>
+        <figure class="paper-figure"><a href="assets/diagnosis.webp" target="_blank" rel="noopener" aria-label="Open full first-step diagnosis figure"><img src="assets/diagnosis.webp" width="1700" height="664" loading="lazy" alt="Paper plots showing that teacher replacement of the first step recovers most of the diversity gain while the later student steps stay fixed."></a><figcaption>Controlled first-step replacement. The plotted bands show variation across three seeds.</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="method" class="section method-section"><div class="shell">
+      <div class="section-heading"><div class="section-kicker">02 — THE METHOD</div><h2>A small adapter at one point in the trajectory.</h2><p>ReSeed matches the student's first-step velocity to the teacher's average velocity over the same interval. Every original student parameter remains frozen.</p></div>
+      <div class="method-steps"><article><span class="step-index">01 / TARGET</span><h3>Follow the teacher's first interval</h3><p>Use the same prompt and initial noise to compute the teacher's first-boundary state.</p></article><article><span class="step-index">02 / FIT</span><h3>Train residual channel biases</h3><p>Fit only added per-channel biases with a velocity regression loss; no target images or adversarial loss are needed.</p></article><article><span class="step-index">03 / GENERATE</span><h3>Turn the adapter off after step one</h3><p>Run the unchanged student for steps two through four, with no teacher call at inference.</p></article></div>
+      <figure class="paper-figure method-figure"><a href="assets/method.webp" target="_blank" rel="noopener" aria-label="Open full ReSeed method diagram"><img src="assets/method.webp" width="1700" height="1131" loading="lazy" alt="ReSeed paper diagram: first-step trajectories, teacher-secant velocity training with frozen student weights, and a bias active only in step one."></a><figcaption>The adapter changes the first student step; the later three steps use the original frozen model.</figcaption></figure>
+      <div class="formula-panel"><div><span class="formula-label">TRAINING TARGET</span><p class="formula">v̄<sub>teacher</sub>(z, c) = <span class="fraction"><span>x<sup>teacher</sup><sub>t₁</sub>(z, c) − z</span><span>t₁ − t₀</span></span></p></div><p>The target is the teacher's <strong>average velocity</strong> over the first student interval. ReSeed minimizes the squared difference between that target and the adapted student's first-step velocity.</p></div>
+    </div></section>
+
+    <section id="results" class="section shell">
+      <div class="section-heading"><div class="section-kicker">03 — EVIDENCE ACROSS MODELS</div><h2>More variation, with the same number of steps.</h2><p>Across three image generators and one video generator, the adapters use 0.002–0.004% of denoiser parameters. Diversity improves, while some quality metrics show trade-offs.</p></div>
+      <div class="results-intro"><div class="result-feature"><span>FLUX.1-dev · 4-step student</span><strong>+48.3%</strong><p>DINOv3 diversity with 233,472 trainable bias parameters. FID decreases from 40.22 to 34.65.</p></div><div class="result-note"><span class="note-label">WHAT THE RESULTS DO — AND DO NOT — SAY</span><p>On the image models, DINOv3 diversity and FID improve. PickScore and HPS decrease for some models. On video, text alignment and dynamic degree decrease. The paper reports these changes alongside the gains.</p></div></div>
+      <div class="table-scroll" role="region" aria-label="Main ReSeed results" tabindex="0"><table><caption>Main results reported in the manuscript. DINO diversity is measured with DINOv3 for images and DINOv2 for video.</caption><thead><tr><th scope="col">Generator</th><th scope="col">DINO diversity ↑</th><th scope="col">Relative gain</th><th scope="col">FID ↓</th><th scope="col">Added parameters</th></tr></thead><tbody><tr><th scope="row">SD3-Medium</th><td>0.2142 <span class="arrow">→</span> <strong>0.2936</strong></td><td class="gain">+37.1%</td><td>37.38 <span class="arrow">→</span> <strong>33.48</strong></td><td>0.00356%</td></tr><tr><th scope="row">SD3.5-Medium</th><td>0.2356 <span class="arrow">→</span> <strong>0.3282</strong></td><td class="gain">+39.3%</td><td>32.51 <span class="arrow">→</span> <strong>29.30</strong></td><td>0.00322%</td></tr><tr><th scope="row">FLUX.1-dev</th><td>0.1575 <span class="arrow">→</span> <strong>0.2336</strong></td><td class="gain">+48.3%</td><td>40.22 <span class="arrow">→</span> <strong>34.65</strong></td><td>0.00196%</td></tr><tr><th scope="row">Wan2.1-T2V-1.3B</th><td>0.3374 <span class="arrow">→</span> <strong>0.4290</strong></td><td class="gain">+27.1%</td><td>Not evaluated</td><td>0.00325%</td></tr></tbody></table></div>
+      <p class="table-footnote">All values compare a distilled student with the same frozen student plus ReSeed. Image results use the paper's COCO quality and same-prompt diversity protocols; video results use a 320-prompt VBench subset. The video experiment has one adapter training run.</p>
+    </section>
+
+    <section id="examples" class="section examples-section"><div class="shell">
+      <div class="section-heading"><div class="section-kicker">04 — QUALITATIVE RESULTS</div><h2>Compare matched-noise generations.</h2><p>Image comparisons share initial noises across methods. The Wan2.1 comparison below plays the original generated videos for each prompt and seed.</p></div>
+      <div class="gallery-tabs" role="group" aria-label="Choose an image comparison"><button class="gallery-tab is-active" type="button" data-gallery="sd3" aria-pressed="true">SD3-Medium <span>Dog</span></button><button class="gallery-tab" type="button" data-gallery="sd35" aria-pressed="false">SD3.5-Medium <span>Cat</span></button><button class="gallery-tab" type="button" data-gallery="flux" aria-pressed="false">FLUX.1-dev <span>Laptop cat</span></button></div>
+      <div class="gallery-display"><div class="gallery-meta"><div><span id="gallery-model" class="gallery-model">SD3-Medium</span><h3 id="gallery-title">A photo of a dog</h3></div><p id="gallery-description">Teacher, four-step DMD, GAD, DP-DMD and DMD + ReSeed, arranged in matched-noise columns.</p></div><figure><a id="gallery-link" href="assets/sd3-dog.webp" target="_blank" rel="noopener" aria-label="Open full qualitative comparison"><img id="gallery-image" src="assets/sd3-dog.webp" width="1800" height="575" loading="lazy" alt="Matched-noise SD3-Medium dog image grids comparing teacher, DMD, GAD, DP-DMD, and ReSeed."></a><figcaption id="gallery-caption">The same prompt and six initial noises are used for each method.</figcaption></figure></div>
+      <div class="video-results" aria-labelledby="wan-heading">
+        <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Watch the same seed across three methods.</h3><p>Each clip has 81 frames at 16 fps. Choose one of four paper prompts and any of its eight matched seeds.</p></div><button id="play-all-videos" class="button button-primary" type="button">Play all three videos</button></div>
+        <div class="video-prompt-tabs" role="group" aria-label="Choose a video prompt"><button type="button" data-video-prompt="a_latte_art" aria-pressed="true">Latte art</button><button type="button" data-video-prompt="b_ceramic_plant_pot" aria-pressed="false">Plant pot</button><button type="button" data-video-prompt="c_sparklers" aria-pressed="false">Sparklers</button><button type="button" data-video-prompt="d_wooden_pathway" aria-pressed="false">Wooden pathway</button></div>
+        <div class="video-selection"><div><span id="video-prompt-source" class="gallery-model">71-prompt study · prompt 22</span><h4 id="video-prompt-title">A barista pours latte art into a cappuccino</h4></div><div class="seed-picker"><span>Initial noise seed</span><div role="group" aria-label="Choose matched initial noise seed"><button type="button" data-video-seed="0" aria-pressed="true">0</button><button type="button" data-video-seed="1" aria-pressed="false">1</button><button type="button" data-video-seed="2" aria-pressed="false">2</button><button type="button" data-video-seed="3" aria-pressed="false">3</button><button type="button" data-video-seed="4" aria-pressed="false">4</button><button type="button" data-video-seed="5" aria-pressed="false">5</button><button type="button" data-video-seed="6" aria-pressed="false">6</button><button type="button" data-video-seed="7" aria-pressed="false">7</button></div></div></div>
+        <div class="video-grid"><article><h4>Teacher <span>50 steps</span></h4><video data-video-method="teacher" controls muted loop playsinline preload="metadata" aria-label="Wan teacher video for selected prompt and seed"></video></article><article><h4>DMD2 <span>4 steps</span></h4><video data-video-method="dmd2" controls muted loop playsinline preload="metadata" aria-label="Wan DMD2 video for selected prompt and seed"></video></article><article><h4>DMD2 + ReSeed <span>4 steps</span></h4><video data-video-method="reseed_300" controls muted loop playsinline preload="metadata" aria-label="Wan DMD2 plus ReSeed video for selected prompt and seed"></video></article></div>
+        <p class="video-note">Video-level DINO diversity across eight seeds (teacher / DMD2 / ReSeed): <strong id="video-diversity">0.122 / 0.058 / 0.245</strong>. Videos are the original generated MP4 files; ReSeed was trained for 300 updates.</p>
+      </div>
+    </div></section>
+
+    <section id="abstract" class="section shell closing-grid"><div><div class="section-kicker">05 — ABSTRACT</div><h2>The work in brief.</h2><p>Distribution-matching distillation makes image and video generation fast, but can map different initial noises to similar outputs. ReSeed addresses this in an already distilled model. It adds small residual biases to transformer blocks, trains them to match the teacher's first-interval velocity, and activates them only for the first denoising step.</p><p>Across SD3-Medium, SD3.5-Medium, FLUX.1-dev and Wan2.1-T2V-1.3B, the paper finds substantial gains in same-prompt feature diversity. The result is a lightweight post-distillation correction; it does not require retraining the student or adding sampling steps.</p></div><aside class="limitations"><span class="note-label">LIMITS TO KEEP IN VIEW</span><ul><li>ReSeed training requires teacher trajectories over the first interval.</li><li>The experiments use flow-matching transformers; other diffusion architectures remain untested.</li><li>Higher feature-space diversity can come with lower preference scores or text alignment.</li></ul></aside></section>
+
+    <section id="citation" class="section citation-section"><div class="shell citation-inner"><div><div class="section-kicker">CITE THIS WORK</div><h2>BibTeX</h2><p>The arXiv identifier will be added when the manuscript is released.</p></div><div class="citation-code"><button id="copy-citation" class="copy-button" type="button" aria-label="Copy BibTeX citation">Copy BibTeX</button><pre><code id="bibtex">@misc{tang2026reseed,
+  title  = {A First-Step Bias Restores Lost Diversity in Diffusion Model Distillation},
+  author = {Tang, Wenwu and Wang, Dong and Cheng, Yun and Saukh, Olga},
+  year   = {2026},
+  note   = {Manuscript}
+}</code></pre></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>ReSeed<span class="brand-dot">.</span></span></div><p>First-step repair for diverse few-step generation.</p><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>
