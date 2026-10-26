@@ -3,42 +3,37 @@ const examples = {
     model: "SD3-Medium",
     title: "A photo of a dog",
     description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
-    image: "assets/sd3-dog.webp",
-    width: 1800,
-    height: 575,
-    top: 59,
-    columnsPerMethod: 2,
-    rowsPerMethod: 3,
-    methods: ["DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
-    groups: [[363, 346], [727, 346], [1091, 346], [1455, 345]],
+    slug: "sd3",
+    methods: [
+      { name: "DMD", folder: "dmd" },
+      { name: "GAD", folder: "gad" },
+      { name: "DP-DMD", folder: "dpdmd" },
+      { name: "DMD + ReSeed", folder: "reseed" }
+    ],
     caption: "All six matched examples are shown."
   },
   sd35: {
     model: "SD3.5-Medium",
     title: "A photo of a cat",
     description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
-    image: "assets/sd35-cat.webp",
-    width: 1800,
-    height: 575,
-    top: 59,
-    columnsPerMethod: 2,
-    rowsPerMethod: 3,
-    methods: ["DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
-    groups: [[363, 345], [728, 344], [1091, 346], [1455, 345]],
+    slug: "sd35",
+    methods: [
+      { name: "DMD", folder: "dmd" },
+      { name: "GAD", folder: "gad" },
+      { name: "DP-DMD", folder: "dpdmd" },
+      { name: "DMD + ReSeed", folder: "reseed" }
+    ],
     caption: "All six matched examples are shown."
   },
   flux: {
     model: "FLUX.1-dev",
-    title: "A cat resting on an open laptop",
+    title: "A photo of a cat",
     description: "Six matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
-    image: "assets/flux-cat.webp",
-    width: 1800,
-    height: 593,
-    top: 0,
-    columnsPerMethod: 3,
-    rowsPerMethod: 3,
-    methods: ["SenseFlow", "SenseFlow + ReSeed"],
-    groups: [[601, 596], [1207, 593]],
+    slug: "flux",
+    methods: [
+      { name: "SenseFlow", folder: "senseflow" },
+      { name: "SenseFlow + ReSeed", folder: "reseed" }
+    ],
     caption: "Six of the nine matched examples are shown."
   }
 };
@@ -60,32 +55,23 @@ function renderGallery(item) {
   const rows = [];
   for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
     const method = item.methods[methodIndex];
-    const [groupStart, groupWidth] = item.groups[methodIndex];
-    const tileWidth = groupWidth / item.columnsPerMethod;
-    const tileHeight = (item.height - item.top) / item.rowsPerMethod;
     const section = document.createElement("section");
     section.className = "image-method-row" + (methodIndex === item.methods.length - 1 ? " image-method-row-ours" : "");
     const heading = document.createElement("h4");
-    heading.textContent = method;
+    heading.textContent = method.name;
     section.append(heading);
     const strip = document.createElement("div");
     strip.className = "image-strip";
     for (let index = 0; index < 6; index++) {
-      const column = index % item.columnsPerMethod;
-      const row = Math.floor(index / item.columnsPerMethod);
-      const x = groupStart + column * tileWidth;
-      const y = item.top + row * tileHeight;
       const frame = document.createElement("div");
       frame.className = "image-tile";
-      frame.style.aspectRatio = `${tileWidth} / ${tileHeight}`;
       const image = document.createElement("img");
-      image.src = item.image;
-      image.alt = `${item.model} ${method}, matched example ${index + 1}: ${item.title}`;
+      image.src = `assets/gallery/${item.slug}/${method.folder}/sample-${index}.png`;
+      image.alt = `${item.model} ${method.name}, matched example ${index + 1}: ${item.title}`;
       image.loading = "lazy";
       image.decoding = "async";
-      image.style.width = `${100 * item.width / tileWidth}%`;
-      image.style.left = `${-100 * x / tileWidth}%`;
-      image.style.top = `${-100 * y / tileHeight}%`;
+      image.width = 1024;
+      image.height = 1024;
       frame.append(image);
       strip.append(frame);
     }

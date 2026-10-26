@@ -11,8 +11,8 @@
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261026-six-images">
-  <script src="app.js?v=20261026-six-images" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261026-original-png">
+  <script src="app.js?v=20261026-original-png" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -78,7 +78,7 @@
 
     <section id="examples" class="section examples-section"><div class="shell">
       <div class="section-heading"><div class="section-kicker">04 — QUALITATIVE RESULTS</div><h2>Compare matched-noise generations.</h2><p>Image comparisons share initial noises across methods. The Wan2.1 comparison below plays original generated videos from DMD2, DFD, and DMD2 + ReSeed with matched prompts and seeds.</p></div>
-      <div class="gallery-tabs" role="group" aria-label="Choose an image comparison"><button class="gallery-tab is-active" type="button" data-gallery="sd3" aria-pressed="true">SD3-Medium <span>Dog</span></button><button class="gallery-tab" type="button" data-gallery="sd35" aria-pressed="false">SD3.5-Medium <span>Cat</span></button><button class="gallery-tab" type="button" data-gallery="flux" aria-pressed="false">FLUX.1-dev <span>Laptop cat</span></button></div>
+      <div class="gallery-tabs" role="group" aria-label="Choose an image comparison"><button class="gallery-tab is-active" type="button" data-gallery="sd3" aria-pressed="true">SD3-Medium <span>Dog</span></button><button class="gallery-tab" type="button" data-gallery="sd35" aria-pressed="false">SD3.5-Medium <span>Cat</span></button><button class="gallery-tab" type="button" data-gallery="flux" aria-pressed="false">FLUX.1-dev <span>Cat</span></button></div>
       <div class="gallery-display"><div class="gallery-meta"><div><span id="gallery-model" class="gallery-model">SD3-Medium</span><h3 id="gallery-title">A photo of a dog</h3></div><p id="gallery-description">Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.</p></div><div class="image-matrix-scroll" role="region" aria-label="Image methods across six matched initial noises" tabindex="0"><div class="image-matrix"><div class="image-seed-headings" aria-hidden="true"><span>Sample 1</span><span>Sample 2</span><span>Sample 3</span><span>Sample 4</span><span>Sample 5</span><span>Sample 6</span></div><div id="gallery-matrix"></div></div></div><div class="gallery-footer"><span id="gallery-caption">All six matched examples are shown.</span></div></div>
       <div class="video-results" aria-labelledby="wan-heading">
         <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Five matched seeds, side by side.</h3><p>Choose a prompt to compare five initial noises across DMD2, DFD, and ReSeed. Each clip has 81 frames at 16 fps.</p></div><button id="play-all-videos" class="button button-primary" type="button">Play all 15 videos</button></div>
