@@ -8,22 +8,71 @@ const imageMethods = [
 const imageExamples = [
   { model: "SD3-Medium", title: "A photo of a backpack", slug: "sd3-backpack", seedSuffixes: [0, 1, 2, 3, 4, 6, 7, 9, 11], methods: imageMethods },
   { model: "SD3-Medium", title: "A photo of a dog", slug: "sd3-dog", seedSuffixes: [0, 1, 2, 3, 4, 5, 7, 9, 11], methods: imageMethods },
-  { model: "SD3-Medium", title: "A photo of a couch", slug: "sd3-couch", seedSuffixes: [0, 2, 3, 4, 5, 7, 8, 10, 11], methods: imageMethods },
-  { model: "SD3-Medium", title: "A photo of a handbag", slug: "sd3-handbag", seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 9, 10], methods: imageMethods },
+  { model: "SD3-Medium", title: "A photo of a couch", slug: "sd3-couch", seedSuffixes: [0, 2, 3, 4, 5, 7, 9, 10, 11], methods: imageMethods },
+  { model: "SD3-Medium", title: "A photo of a handbag", slug: "sd3-handbag", seedSuffixes: [0, 11, 2, 3, 4, 5, 6, 9, 10], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a coffee mug", slug: "sd35-mug", seedSuffixes: [0, 1, 3, 4, 5, 7, 9, 10, 11], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a table lamp", slug: "sd35-lamp", seedSuffixes: [0, 1, 2, 3, 6, 7, 8, 9, 10], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a cat", slug: "sd35-cat", seedSuffixes: [0, 2, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a teddy bear", slug: "sd35-teddy", seedSuffixes: [0, 1, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
   {
     model: "FLUX.1-dev",
-    title: "A photo of a cat",
-    description: "Six matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
-    slug: "flux",
+    title: "a photo of dog",
+    slug: "flux-dog",
+    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
     ],
-    caption: "Six of the nine matched examples are shown."
+    caption: "All nine available matched seeds are shown."
+  },
+  {
+    model: "FLUX.1-dev",
+    title: "a photo of cat",
+    slug: "flux-cat",
+    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
+    methods: [
+      { name: "SenseFlow", folder: "senseflow" },
+      { name: "SenseFlow + ReSeed", folder: "reseed" }
+    ],
+    caption: "All nine available matched seeds are shown."
+  },
+  {
+    model: "FLUX.1-dev",
+    title: "a photo of bird",
+    slug: "flux-bird",
+    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
+    methods: [
+      { name: "SenseFlow", folder: "senseflow" },
+      { name: "SenseFlow + ReSeed", folder: "reseed" }
+    ],
+    caption: "All nine available matched seeds are shown."
+  },
+  {
+    model: "FLUX.1-dev",
+    title: "a photo of horse",
+    slug: "flux-horse",
+    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
+    methods: [
+      { name: "SenseFlow", folder: "senseflow" },
+      { name: "SenseFlow + ReSeed", folder: "reseed" }
+    ],
+    caption: "All nine available matched seeds are shown."
+  },
+  {
+    model: "FLUX.1-dev",
+    title: "a photo of rabbit",
+    slug: "flux-rabbit",
+    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
+    methods: [
+      { name: "SenseFlow", folder: "senseflow" },
+      { name: "SenseFlow + ReSeed", folder: "reseed" }
+    ],
+    caption: "All nine available matched seeds are shown."
   }
 ];
 
