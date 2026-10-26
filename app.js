@@ -65,23 +65,19 @@ for (const tab of tabs) {
 const videoPrompts = {
   a_latte_art: {
     title: "A barista pours latte art into a cappuccino",
-    source: "71-prompt study · prompt 22",
-    diversity: "0.122 / 0.058 / 0.245"
+    source: "71-prompt study · prompt 22"
   },
   b_ceramic_plant_pot: {
     title: "An elegant ceramic plant pot and hanging plant",
-    source: "320-prompt VBench subset · prompt 184",
-    diversity: "0.607 / 0.247 / 0.588"
+    source: "320-prompt VBench subset · prompt 184"
   },
   c_sparklers: {
     title: "A young boy lights sparklers at twilight",
-    source: "71-prompt study · prompt 14",
-    diversity: "0.113 / 0.082 / 0.132"
+    source: "71-prompt study · prompt 14"
   },
   d_wooden_pathway: {
     title: "Scenic view from a wooden pathway",
-    source: "320-prompt VBench subset · prompt 265",
-    diversity: "0.599 / 0.339 / 0.475"
+    source: "320-prompt VBench subset · prompt 265"
   }
 };
 
@@ -97,7 +93,6 @@ function updateVideos() {
   const seed = String(activeSeed).padStart(3, "0");
   document.getElementById("video-prompt-title").textContent = prompt.title;
   document.getElementById("video-prompt-source").textContent = prompt.source;
-  document.getElementById("video-diversity").textContent = prompt.diversity;
   for (const player of videoPlayers) {
     player.pause();
     player.src = `assets/wan/${activePrompt}_seed_${seed}_${player.dataset.videoMethod}.mp4`;
