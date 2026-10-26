@@ -2,32 +2,44 @@ const examples = {
   sd3: {
     model: "SD3-Medium",
     title: "A photo of a dog",
-    description: "Teacher, four-step DMD, GAD, DP-DMD and DMD + ReSeed, arranged in matched-noise columns.",
+    description: "The same five initial noises are shown for the teacher, DMD, GAD, DP-DMD, and DMD + ReSeed.",
     image: "assets/sd3-dog.webp",
     width: 1800,
     height: 575,
-    alt: "Matched-noise SD3-Medium dog grids comparing teacher, DMD, GAD, DP-DMD, and ReSeed.",
-    caption: "The same prompt and six initial noises are used for each method."
+    top: 59,
+    columnsPerMethod: 2,
+    rowsPerMethod: 3,
+    methods: ["Teacher", "DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
+    groups: [[0, 345], [363, 346], [727, 346], [1091, 346], [1455, 345]],
+    caption: "Five matched examples are shown; the original figure contains all six."
   },
   sd35: {
     model: "SD3.5-Medium",
     title: "A photo of a cat",
-    description: "Matched-seed samples from the teacher, four-step DMD, GAD, DP-DMD and the frozen DMD student with ReSeed.",
+    description: "The same five initial noises are shown for the teacher, DMD, GAD, DP-DMD, and DMD + ReSeed.",
     image: "assets/sd35-cat.webp",
     width: 1800,
     height: 575,
-    alt: "Matched-noise SD3.5-Medium cat grids comparing teacher, distilled students, and ReSeed.",
-    caption: "Five methods share the same six initial noises."
+    top: 59,
+    columnsPerMethod: 2,
+    rowsPerMethod: 3,
+    methods: ["Teacher", "DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
+    groups: [[0, 345], [363, 345], [728, 344], [1091, 346], [1455, 345]],
+    caption: "Five matched examples are shown; the original figure contains all six."
   },
   flux: {
     model: "FLUX.1-dev",
     title: "A cat resting on an open laptop",
-    description: "The FLUX.1-dev teacher, four-step SenseFlow student and the same student with ReSeed.",
+    description: "The same five initial noises are shown for the teacher, SenseFlow student, and SenseFlow + ReSeed.",
     image: "assets/flux-cat.webp",
     width: 1800,
     height: 593,
-    alt: "Nine matched-seed laptop-cat generations for FLUX.1-dev teacher, SenseFlow, and ReSeed.",
-    caption: "Each method uses the same nine initial noises."
+    top: 0,
+    columnsPerMethod: 3,
+    rowsPerMethod: 3,
+    methods: ["Teacher", "SenseFlow", "SenseFlow + ReSeed"],
+    groups: [[0, 594], [601, 596], [1207, 593]],
+    caption: "Five matched examples are shown; the original figure contains all nine."
   }
 };
 
@@ -36,24 +48,60 @@ const fields = {
   model: document.getElementById("gallery-model"),
   title: document.getElementById("gallery-title"),
   description: document.getElementById("gallery-description"),
-  image: document.getElementById("gallery-image"),
+  matrix: document.getElementById("gallery-matrix"),
   link: document.getElementById("gallery-link"),
   caption: document.getElementById("gallery-caption")
 };
+
+function renderGallery(item) {
+  fields.model.textContent = item.model;
+  fields.title.textContent = item.title;
+  fields.description.textContent = item.description;
+  fields.link.href = item.image;
+  fields.caption.textContent = item.caption;
+  const rows = [];
+  for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
+    const method = item.methods[methodIndex];
+    const [groupStart, groupWidth] = item.groups[methodIndex];
+    const tileWidth = groupWidth / item.columnsPerMethod;
+    const tileHeight = (item.height - item.top) / item.rowsPerMethod;
+    const section = document.createElement("section");
+    section.className = "image-method-row" + (methodIndex === item.methods.length - 1 ? " image-method-row-ours" : "");
+    const heading = document.createElement("h4");
+    heading.textContent = method;
+    section.append(heading);
+    const strip = document.createElement("div");
+    strip.className = "image-strip";
+    for (let index = 0; index < 5; index++) {
+      const column = index % item.columnsPerMethod;
+      const row = Math.floor(index / item.columnsPerMethod);
+      const x = groupStart + column * tileWidth;
+      const y = item.top + row * tileHeight;
+      const frame = document.createElement("div");
+      frame.className = "image-tile";
+      frame.style.aspectRatio = `${tileWidth} / ${tileHeight}`;
+      const image = document.createElement("img");
+      image.src = item.image;
+      image.alt = `${item.model} ${method}, matched example ${index + 1}: ${item.title}`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.style.width = `${100 * item.width / tileWidth}%`;
+      image.style.left = `${-100 * x / tileWidth}%`;
+      image.style.top = `${-100 * y / tileHeight}%`;
+      frame.append(image);
+      strip.append(frame);
+    }
+    section.append(strip);
+    rows.push(section);
+  }
+  fields.matrix.replaceChildren(...rows);
+}
 
 for (const tab of tabs) {
   tab.addEventListener("click", () => {
     const item = examples[tab.dataset.gallery];
     if (!item) return;
-    fields.model.textContent = item.model;
-    fields.title.textContent = item.title;
-    fields.description.textContent = item.description;
-    fields.image.src = item.image;
-    fields.image.alt = item.alt;
-    fields.image.width = item.width;
-    fields.image.height = item.height;
-    fields.link.href = item.image;
-    fields.caption.textContent = item.caption;
+    renderGallery(item);
     for (const button of tabs) {
       const active = button === tab;
       button.classList.toggle("is-active", active);
@@ -61,6 +109,7 @@ for (const tab of tabs) {
     }
   });
 }
+renderGallery(examples.sd3);
 
 const videoPrompts = {
   a_latte_art: {
