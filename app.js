@@ -82,30 +82,39 @@ const videoPrompts = {
 };
 
 const promptButtons = [...document.querySelectorAll("[data-video-prompt]")];
-const seedButtons = [...document.querySelectorAll("[data-video-seed]")];
+const videoSeeds = [0, 2, 4, 6, 7];
+const methodNames = { dmd2: "DMD2", dfd: "DFD", reseed_300: "DMD2 plus ReSeed" };
+for (const strip of document.querySelectorAll("[data-video-strip]")) {
+  for (const seed of videoSeeds) {
+    const player = document.createElement("video");
+    player.dataset.videoMethod = strip.dataset.videoStrip;
+    player.dataset.videoSeed = String(seed);
+    player.controls = true;
+    player.muted = true;
+    player.loop = true;
+    player.playsInline = true;
+    player.preload = "metadata";
+    player.setAttribute("aria-label", `${methodNames[strip.dataset.videoStrip]}, seed ${seed}, selected prompt`);
+    strip.append(player);
+  }
+}
 const videoPlayers = [...document.querySelectorAll("[data-video-method]")];
 const playAll = document.getElementById("play-all-videos");
 let activePrompt = "a_latte_art";
-let activeSeed = 0;
 
 function updateVideos() {
   const prompt = videoPrompts[activePrompt];
-  const seed = String(activeSeed).padStart(3, "0");
   document.getElementById("video-prompt-title").textContent = prompt.title;
   document.getElementById("video-prompt-source").textContent = prompt.source;
   for (const player of videoPlayers) {
     player.pause();
+    const seed = player.dataset.videoSeed.padStart(3, "0");
     player.src = `assets/wan/${activePrompt}_seed_${seed}_${player.dataset.videoMethod}.mp4`;
     player.load();
   }
-  playAll.textContent = "Play all three videos";
+  playAll.textContent = "Play all 15 videos";
   for (const button of promptButtons) {
     const active = button.dataset.videoPrompt === activePrompt;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", String(active));
-  }
-  for (const button of seedButtons) {
-    const active = Number(button.dataset.videoSeed) === activeSeed;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   }
@@ -117,23 +126,17 @@ for (const button of promptButtons) {
     updateVideos();
   });
 }
-for (const button of seedButtons) {
-  button.addEventListener("click", () => {
-    activeSeed = Number(button.dataset.videoSeed);
-    updateVideos();
-  });
-}
 playAll?.addEventListener("click", () => {
   const playing = videoPlayers.some((player) => !player.paused);
   if (playing) {
     videoPlayers.forEach((player) => player.pause());
-    playAll.textContent = "Play all three videos";
+    playAll.textContent = "Play all 15 videos";
   } else {
     videoPlayers.forEach((player) => {
       player.currentTime = 0;
       player.play().catch(() => {});
     });
-    playAll.textContent = "Pause all three videos";
+    playAll.textContent = "Pause all 15 videos";
   }
 });
 
