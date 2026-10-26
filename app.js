@@ -1,31 +1,20 @@
-const examples = {
-  sd3: {
-    model: "SD3-Medium",
-    title: "A photo of a dog",
-    description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
-    slug: "sd3",
-    methods: [
-      { name: "DMD", folder: "dmd" },
-      { name: "GAD", folder: "gad" },
-      { name: "DP-DMD", folder: "dpdmd" },
-      { name: "DMD + ReSeed", folder: "reseed" }
-    ],
-    caption: "All six matched examples are shown."
-  },
-  sd35: {
-    model: "SD3.5-Medium",
-    title: "A photo of a cat",
-    description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
-    slug: "sd35",
-    methods: [
-      { name: "DMD", folder: "dmd" },
-      { name: "GAD", folder: "gad" },
-      { name: "DP-DMD", folder: "dpdmd" },
-      { name: "DMD + ReSeed", folder: "reseed" }
-    ],
-    caption: "All six matched examples are shown."
-  },
-  flux: {
+const imageMethods = [
+  { name: "DMD", folder: "dmd" },
+  { name: "GAD", folder: "gad" },
+  { name: "DP-DMD", folder: "dpdmd" },
+  { name: "DMD + ReSeed", folder: "reseed" }
+];
+
+const imageExamples = [
+  { model: "SD3-Medium", title: "A photo of a backpack", slug: "sd3-backpack", seedSuffixes: [0, 1, 2, 3, 4, 6, 7, 9, 11], methods: imageMethods },
+  { model: "SD3-Medium", title: "A photo of a dog", slug: "sd3-dog", seedSuffixes: [0, 1, 2, 3, 4, 5, 7, 9, 11], methods: imageMethods },
+  { model: "SD3-Medium", title: "A photo of a couch", slug: "sd3-couch", seedSuffixes: [0, 2, 3, 4, 5, 7, 8, 10, 11], methods: imageMethods },
+  { model: "SD3-Medium", title: "A photo of a handbag", slug: "sd3-handbag", seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 9, 10], methods: imageMethods },
+  { model: "SD3.5-Medium", title: "A photo of a coffee mug", slug: "sd35-mug", seedSuffixes: [0, 1, 3, 4, 5, 7, 9, 10, 11], methods: imageMethods },
+  { model: "SD3.5-Medium", title: "A photo of a table lamp", slug: "sd35-lamp", seedSuffixes: [0, 1, 2, 3, 6, 7, 8, 9, 10], methods: imageMethods },
+  { model: "SD3.5-Medium", title: "A photo of a cat", slug: "sd35-cat", seedSuffixes: [0, 2, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
+  { model: "SD3.5-Medium", title: "A photo of a teddy bear", slug: "sd35-teddy", seedSuffixes: [0, 1, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
+  {
     model: "FLUX.1-dev",
     title: "A photo of a cat",
     description: "Six matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
@@ -36,17 +25,27 @@ const examples = {
     ],
     caption: "Six of the nine matched examples are shown."
   }
-};
+];
 
 function renderGallery(item) {
+  const selectedSeeds = item.seedSuffixes;
+  const count = selectedSeeds?.length ?? 6;
   const gallery = document.createElement("section");
   gallery.className = "gallery-display";
   gallery.setAttribute("aria-labelledby", `gallery-title-${item.slug}`);
-  gallery.innerHTML = `<div class="gallery-meta"><div><span class="gallery-model"></span><h3 id="gallery-title-${item.slug}"></h3></div><p class="gallery-description"></p></div><div class="image-matrix-scroll" role="region" aria-label="${item.model} image methods across six matched initial noises" tabindex="0"><div class="image-matrix"><div class="image-seed-headings" aria-hidden="true"><span>Sample 1</span><span>Sample 2</span><span>Sample 3</span><span>Sample 4</span><span>Sample 5</span><span>Sample 6</span></div><div class="gallery-matrix"></div></div></div><div class="gallery-footer"><span class="gallery-caption"></span></div>`;
+  gallery.innerHTML = `<div class="gallery-meta"><div><span class="gallery-model"></span><h3 id="gallery-title-${item.slug}"></h3></div><p class="gallery-description"></p></div><div class="image-matrix-scroll" role="region" tabindex="0"><div class="image-matrix"><div class="image-seed-headings" aria-hidden="true"></div><div class="gallery-matrix"></div></div></div><div class="gallery-footer"><span class="gallery-caption"></span></div>`;
+  gallery.classList.add(count === 9 ? "gallery-nine" : "gallery-six");
+  gallery.querySelector(".image-matrix-scroll").setAttribute("aria-label", `${item.model}: ${item.title}; ${item.methods.length} image methods across ${count} matched initial noises`);
   gallery.querySelector(".gallery-model").textContent = item.model;
   gallery.querySelector("h3").textContent = item.title;
-  gallery.querySelector(".gallery-description").textContent = item.description;
-  gallery.querySelector(".gallery-caption").textContent = item.caption;
+  gallery.querySelector(".gallery-description").textContent = item.description ?? "Nine curated matched initial noises across DMD, GAD, DP-DMD, and DMD + ReSeed.";
+  gallery.querySelector(".gallery-caption").textContent = item.caption ?? "Nine of 12 matched seeds, selected for ReSeed image quality and variety.";
+  const headings = gallery.querySelector(".image-seed-headings");
+  for (let index = 0; index < count; index++) {
+    const heading = document.createElement("span");
+    heading.textContent = `Sample ${index + 1}`;
+    headings.append(heading);
+  }
   const rows = [];
   for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
     const method = item.methods[methodIndex];
@@ -57,11 +56,13 @@ function renderGallery(item) {
     section.append(heading);
     const strip = document.createElement("div");
     strip.className = "image-strip";
-    for (let index = 0; index < 6; index++) {
+    for (let index = 0; index < count; index++) {
       const frame = document.createElement("div");
       frame.className = "image-tile";
       const image = document.createElement("img");
-      image.src = `assets/gallery/${item.slug}/${method.folder}/sample-${index}.png`;
+      image.src = selectedSeeds
+        ? `assets/gallery-curated/${item.slug}/${method.folder}/seed-20261025${String(selectedSeeds[index]).padStart(2, "0")}.webp`
+        : `assets/gallery/${item.slug}/${method.folder}/sample-${index}.png`;
       image.alt = `${item.model} ${method.name}, matched example ${index + 1}: ${item.title}`;
       image.loading = "lazy";
       image.decoding = "async";
@@ -78,7 +79,7 @@ function renderGallery(item) {
 }
 
 document.getElementById("gallery-results").replaceChildren(
-  ...Object.values(examples).map(renderGallery)
+  ...imageExamples.map(renderGallery)
 );
 
 const videoPrompts = {
