@@ -1,0 +1,68 @@
+.method-animation{overflow:hidden;border:1px solid #c6ded5;border-radius:18px;background:#f9fcfa;box-shadow:0 20px 55px rgba(19,45,61,.09)}
+.animation-topline{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 28px 18px}
+.animation-kicker,.animation-panel-title,.animation-target>span,.animation-loss>span{font-size:10px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;color:#247e6d}
+.animation-topline h3{margin:5px 0 0;font:700 clamp(22px,2.5vw,30px)/1.2 Georgia,serif;letter-spacing:-.035em}
+.animation-controls{display:flex;gap:7px;flex-shrink:0}
+.animation-controls button{cursor:pointer;border:1px solid #c9ded7;border-radius:999px;padding:7px 13px;background:#fff;color:#214f50;font-size:12px;font-weight:750}
+.animation-controls button:hover{background:#e5f3ee}
+.animation-controls button:disabled{cursor:default;opacity:.65}
+.animation-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:0 28px 20px}
+.animation-stage{cursor:pointer;border:1px solid #d4e6df;border-radius:9px;background:#fff;color:#4d696b;text-align:left;padding:10px 13px;font-size:12px;font-weight:750;transition:background .25s,color .25s,border-color .25s}
+.animation-stage span{margin-right:8px;color:#2a927e;font-weight:850}
+.animation-stage.is-current{background:#163f45;border-color:#163f45;color:#fff}
+.animation-stage.is-current span{color:#9fe1cd}
+.animation-diagram{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(270px,.78fr);gap:12px;padding:0 28px}
+.animation-training,.animation-inference{min-width:0;border:1px solid #d9e6e1;border-radius:12px;background:#fff;padding:17px 17px 18px}
+.animation-panel-title{display:flex;justify-content:space-between;gap:10px;margin-bottom:15px}
+.animation-panel-title span{color:#80979a;font-weight:650;letter-spacing:0;text-transform:none}
+.animation-flow{display:grid;grid-template-columns:minmax(75px,.85fr) 26px minmax(90px,1fr) 26px minmax(125px,1.22fr);align-items:center;gap:5px;transition:opacity .4s}
+.animation-flow + .animation-target{margin:10px 0 17px}
+.animation-node{min-height:75px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1px solid #b9ccc9;border-radius:9px;background:#f6faf8;padding:10px 8px;color:#214249;font-size:15px;font-weight:800;line-height:1.15}
+.animation-node small,.animation-step small{display:block;margin-top:5px;color:#668187;font-size:10px;font-weight:600;line-height:1.2}
+.animation-network{background:#f4f7fa;border-color:#a7bdc9}
+.animation-result{background:#e9f4f7;border-color:#b6d4dd}
+.animation-connector{position:relative;width:100%;height:2px;background:#8aa4a8}
+.animation-connector:before{content:"";position:absolute;right:-2px;top:-4px;border-left:7px solid #8aa4a8;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.animation-connector:after{content:"";position:absolute;left:0;top:-4px;width:10px;height:10px;border-radius:50%;background:#2ca788;box-shadow:0 0 0 3px rgba(44,167,136,.17);opacity:0}
+.animation-target,.animation-loss{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 11px;border-radius:9px;padding:10px 13px;transition:opacity .4s,box-shadow .4s}
+.animation-target{background:#e9f5f2;border:1px solid #b8dfd1}
+.animation-loss{margin-top:10px;background:#fff4db;border:1px solid #ecd69b}
+.animation-target>span,.animation-loss>span{width:100%}
+.animation-target strong,.animation-loss strong{color:#183a44;font:600 clamp(15px,1.7vw,20px)/1.3 Georgia,serif;white-space:nowrap}
+.animation-target small,.animation-loss small{color:#59777a;font-size:11px}
+.animation-beta{display:block;width:max-content;max-width:100%;margin:-27px auto 7px;border:1px solid #ed9c83;border-radius:5px;padding:3px 7px;background:#fff0e9;color:#bc563c;font-size:11px;font-weight:850;white-space:nowrap;box-shadow:0 3px 10px rgba(198,94,65,.1)}
+.animation-network-student{margin-top:20px;border-color:#b7cddd}
+.animation-student{margin-top:24px}
+.animation-inference{transition:opacity .4s,box-shadow .4s}
+.animation-inference-stack{display:flex;align-items:center;flex-direction:column;gap:7px}
+.animation-inference-stack>.animation-node,.animation-step{width:min(100%,210px);min-height:57px}
+.animation-step{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;border:2px solid #6e97b4;border-radius:9px;background:#edf6f9;padding:9px 10px;text-align:center}
+.animation-step strong{color:#173d4c;font-size:17px;line-height:1.15}
+.animation-step-one{margin-top:17px;border-color:#45a788;background:#e6f6ed}
+.animation-step-one .animation-beta{position:absolute;top:-17px;margin:0}
+.animation-step-rest>span{color:#668187;font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:.08em}
+.animation-down-arrow{position:relative;height:17px;width:2px;background:#75a9a0}
+.animation-down-arrow:after{content:"";position:absolute;left:-4px;bottom:-2px;border-top:7px solid #75a9a0;border-left:5px solid transparent;border-right:5px solid transparent}
+.animation-output{display:grid;grid-template-columns:repeat(3,28px);gap:5px;padding:3px}
+.animation-output i{display:block;aspect-ratio:1;border-radius:4px;background:#82cb83;transform:scale(.82);transition:transform .45s,opacity .45s;opacity:.48}
+.animation-output i:nth-child(2){background:#435584}.animation-output i:nth-child(3){background:#a7d741}.animation-output i:nth-child(4){background:#36a286}.animation-output i:nth-child(5){background:#68c881}.animation-output i:nth-child(6){background:#ccdf51}
+.animation-bottomline{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:75px;padding:14px 28px 19px}
+.animation-bottomline p{margin:0;max-width:690px;color:#38555e;font-size:13px;line-height:1.55}
+.animation-bottomline a{flex-shrink:0;color:#177e68;font-size:12px;font-weight:800;text-decoration:none}
+.animation-bottomline a:hover{text-decoration:underline}
+.method-animation[data-stage="0"] .animation-student,.method-animation[data-stage="0"] .animation-loss,.method-animation[data-stage="0"] .animation-inference{opacity:.4}
+.method-animation[data-stage="1"] .animation-teacher{opacity:.58}
+.method-animation[data-stage="1"] .animation-inference{opacity:.4}
+.method-animation[data-stage="2"] .animation-training{opacity:.42}
+.method-animation[data-stage="0"] .animation-target,.method-animation[data-stage="1"] .animation-loss,.method-animation[data-stage="2"] .animation-inference{box-shadow:0 0 0 3px rgba(61,174,145,.18)}
+.method-animation[data-stage="2"] .animation-output i{opacity:1;transform:scale(1)}
+.method-animation.is-playing[data-stage="0"] .animation-teacher .animation-connector:after,.method-animation.is-playing[data-stage="1"] .animation-student .animation-connector:after{opacity:1;animation:reseed-flow-right 1.5s ease-in-out infinite}
+.method-animation.is-playing[data-stage="1"] .animation-network-student .animation-beta,.method-animation.is-playing[data-stage="2"] .animation-step-one .animation-beta{animation:reseed-beta-pulse 1.8s ease-in-out infinite}
+.method-animation.is-playing[data-stage="2"] .animation-output i{animation:reseed-output 2.2s ease-in-out infinite alternate}
+.method-animation.is-playing[data-stage="2"] .animation-output i:nth-child(2){animation-delay:.2s}.method-animation.is-playing[data-stage="2"] .animation-output i:nth-child(3){animation-delay:.4s}.method-animation.is-playing[data-stage="2"] .animation-output i:nth-child(4){animation-delay:.6s}.method-animation.is-playing[data-stage="2"] .animation-output i:nth-child(5){animation-delay:.8s}.method-animation.is-playing[data-stage="2"] .animation-output i:nth-child(6){animation-delay:1s}
+@keyframes reseed-flow-right{0%{transform:translateX(0);opacity:0}18%{opacity:1}82%{opacity:1}100%{transform:translateX(19px);opacity:0}}
+@keyframes reseed-beta-pulse{0%,100%{box-shadow:0 0 0 0 rgba(238,115,89,.15)}50%{box-shadow:0 0 0 6px rgba(238,115,89,.18)}}
+@keyframes reseed-output{from{transform:scale(.75)}to{transform:scale(1.08)}}
+@media(max-width:900px){.animation-diagram{grid-template-columns:1fr}.animation-inference-stack{display:grid;grid-template-columns:1fr 15px 1fr 15px 1fr 15px 90px;gap:5px}.animation-inference-stack>.animation-node,.animation-step{width:100%}.animation-step-one{margin-top:0}.animation-down-arrow{height:2px;width:100%}.animation-down-arrow:after{left:auto;right:-2px;top:-4px;bottom:auto;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid #75a9a0;border-right:0}.animation-output{grid-template-columns:repeat(3,22px);gap:3px}}
+@media(max-width:620px){.animation-topline{display:block;padding:20px 17px 15px}.animation-controls{margin-top:15px}.animation-stages{padding:0 17px 15px;gap:5px}.animation-stage{padding:9px 7px;text-align:center;font-size:10px}.animation-stage span{display:block;margin:0 0 2px}.animation-diagram{padding:0 12px}.animation-training,.animation-inference{padding:15px 12px}.animation-flow{grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1.2fr);gap:2px}.animation-node{min-height:66px;padding:7px 3px;font-size:11px}.animation-node small,.animation-step small{font-size:9px}.animation-connector:after{width:7px;height:7px;top:-2px}.animation-target strong,.animation-loss strong{font-size:14px;white-space:normal}.animation-target small,.animation-loss small{font-size:10px}.animation-beta{font-size:9px;padding:3px 4px}.animation-inference-stack{grid-template-columns:1fr 12px 1fr 12px 1fr;gap:3px}.animation-inference-stack>.animation-node,.animation-step{min-height:70px}.animation-step strong{font-size:12px}.animation-output{grid-column:1/-1;grid-row:3;justify-content:center;grid-template-columns:repeat(6,24px)}.animation-inference-stack>.animation-down-arrow:nth-last-child(2){grid-column:1/-1;grid-row:2;width:2px;height:14px;margin:auto}.animation-inference-stack>.animation-down-arrow:nth-last-child(2):after{left:-4px;right:auto;top:auto;bottom:-2px;border-top:7px solid #75a9a0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:0}.animation-bottomline{display:block;padding:14px 17px 19px}.animation-bottomline a{display:inline-block;margin-top:10px}}
+@media(prefers-reduced-motion:reduce){.method-animation *, .method-animation *:before,.method-animation *:after{animation:none!important;transition:none!important}}
