@@ -38,20 +38,15 @@ const examples = {
   }
 };
 
-const tabs = [...document.querySelectorAll("[data-gallery]")];
-const fields = {
-  model: document.getElementById("gallery-model"),
-  title: document.getElementById("gallery-title"),
-  description: document.getElementById("gallery-description"),
-  matrix: document.getElementById("gallery-matrix"),
-  caption: document.getElementById("gallery-caption")
-};
-
 function renderGallery(item) {
-  fields.model.textContent = item.model;
-  fields.title.textContent = item.title;
-  fields.description.textContent = item.description;
-  fields.caption.textContent = item.caption;
+  const gallery = document.createElement("section");
+  gallery.className = "gallery-display";
+  gallery.setAttribute("aria-labelledby", `gallery-title-${item.slug}`);
+  gallery.innerHTML = `<div class="gallery-meta"><div><span class="gallery-model"></span><h3 id="gallery-title-${item.slug}"></h3></div><p class="gallery-description"></p></div><div class="image-matrix-scroll" role="region" aria-label="${item.model} image methods across six matched initial noises" tabindex="0"><div class="image-matrix"><div class="image-seed-headings" aria-hidden="true"><span>Sample 1</span><span>Sample 2</span><span>Sample 3</span><span>Sample 4</span><span>Sample 5</span><span>Sample 6</span></div><div class="gallery-matrix"></div></div></div><div class="gallery-footer"><span class="gallery-caption"></span></div>`;
+  gallery.querySelector(".gallery-model").textContent = item.model;
+  gallery.querySelector("h3").textContent = item.title;
+  gallery.querySelector(".gallery-description").textContent = item.description;
+  gallery.querySelector(".gallery-caption").textContent = item.caption;
   const rows = [];
   for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
     const method = item.methods[methodIndex];
@@ -78,22 +73,13 @@ function renderGallery(item) {
     section.append(strip);
     rows.push(section);
   }
-  fields.matrix.replaceChildren(...rows);
+  gallery.querySelector(".gallery-matrix").append(...rows);
+  return gallery;
 }
 
-for (const tab of tabs) {
-  tab.addEventListener("click", () => {
-    const item = examples[tab.dataset.gallery];
-    if (!item) return;
-    renderGallery(item);
-    for (const button of tabs) {
-      const active = button === tab;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
-    }
-  });
-}
-renderGallery(examples.sd3);
+document.getElementById("gallery-results").replaceChildren(
+  ...Object.values(examples).map(renderGallery)
+);
 
 const videoPrompts = {
   a_latte_art: {

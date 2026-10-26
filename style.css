@@ -56,3 +56,4 @@ h1 em{font-style:normal;color:var(--mint-dark)}
 @media(max-width:740px){.gallery-tabs,.gallery-display{width:calc(100vw - 24px)}.gallery-display{padding:16px}.image-matrix{min-width:800px}.image-method-row h4{font-size:19px}.gallery-footer{display:block}.gallery-footer a{display:inline-block;margin-top:8px}}
 .image-matrix{min-width:1080px}.image-seed-headings,.image-strip{grid-template-columns:repeat(6,minmax(0,1fr))}
 .image-tile{aspect-ratio:1}.gallery-display .image-tile img{position:static;width:100%;height:auto;max-width:100%;object-fit:contain}
+#gallery-results .gallery-display + .gallery-display{margin-top:28px}
