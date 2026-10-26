@@ -2,44 +2,44 @@ const examples = {
   sd3: {
     model: "SD3-Medium",
     title: "A photo of a dog",
-    description: "The same five initial noises are shown for the teacher, DMD, GAD, DP-DMD, and DMD + ReSeed.",
+    description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
     image: "assets/sd3-dog.webp",
     width: 1800,
     height: 575,
     top: 59,
     columnsPerMethod: 2,
     rowsPerMethod: 3,
-    methods: ["Teacher", "DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
-    groups: [[0, 345], [363, 346], [727, 346], [1091, 346], [1455, 345]],
-    caption: "Five matched examples are shown; the original figure contains all six."
+    methods: ["DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
+    groups: [[363, 346], [727, 346], [1091, 346], [1455, 345]],
+    caption: "All six matched examples are shown."
   },
   sd35: {
     model: "SD3.5-Medium",
     title: "A photo of a cat",
-    description: "The same five initial noises are shown for the teacher, DMD, GAD, DP-DMD, and DMD + ReSeed.",
+    description: "Six matched initial noises are shown for DMD, GAD, DP-DMD, and DMD + ReSeed.",
     image: "assets/sd35-cat.webp",
     width: 1800,
     height: 575,
     top: 59,
     columnsPerMethod: 2,
     rowsPerMethod: 3,
-    methods: ["Teacher", "DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
-    groups: [[0, 345], [363, 345], [728, 344], [1091, 346], [1455, 345]],
-    caption: "Five matched examples are shown; the original figure contains all six."
+    methods: ["DMD", "GAD", "DP-DMD", "DMD + ReSeed"],
+    groups: [[363, 345], [728, 344], [1091, 346], [1455, 345]],
+    caption: "All six matched examples are shown."
   },
   flux: {
     model: "FLUX.1-dev",
     title: "A cat resting on an open laptop",
-    description: "The same five initial noises are shown for the teacher, SenseFlow student, and SenseFlow + ReSeed.",
+    description: "Six matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
     image: "assets/flux-cat.webp",
     width: 1800,
     height: 593,
     top: 0,
     columnsPerMethod: 3,
     rowsPerMethod: 3,
-    methods: ["Teacher", "SenseFlow", "SenseFlow + ReSeed"],
-    groups: [[0, 594], [601, 596], [1207, 593]],
-    caption: "Five matched examples are shown; the original figure contains all nine."
+    methods: ["SenseFlow", "SenseFlow + ReSeed"],
+    groups: [[601, 596], [1207, 593]],
+    caption: "Six of the nine matched examples are shown."
   }
 };
 
@@ -49,7 +49,6 @@ const fields = {
   title: document.getElementById("gallery-title"),
   description: document.getElementById("gallery-description"),
   matrix: document.getElementById("gallery-matrix"),
-  link: document.getElementById("gallery-link"),
   caption: document.getElementById("gallery-caption")
 };
 
@@ -57,7 +56,6 @@ function renderGallery(item) {
   fields.model.textContent = item.model;
   fields.title.textContent = item.title;
   fields.description.textContent = item.description;
-  fields.link.href = item.image;
   fields.caption.textContent = item.caption;
   const rows = [];
   for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
@@ -72,7 +70,7 @@ function renderGallery(item) {
     section.append(heading);
     const strip = document.createElement("div");
     strip.className = "image-strip";
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < 6; index++) {
       const column = index % item.columnsPerMethod;
       const row = Math.floor(index / item.columnsPerMethod);
       const x = groupStart + column * tileWidth;
