@@ -23,8 +23,7 @@ const imageExamples = [
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ],
-    caption: "All nine available matched seeds are shown."
+    ]
   },
   {
     model: "FLUX.1-dev",
@@ -35,8 +34,7 @@ const imageExamples = [
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ],
-    caption: "All nine available matched seeds are shown."
+    ]
   },
   {
     model: "FLUX.1-dev",
@@ -47,8 +45,7 @@ const imageExamples = [
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ],
-    caption: "All nine available matched seeds are shown."
+    ]
   },
   {
     model: "FLUX.1-dev",
@@ -59,8 +56,7 @@ const imageExamples = [
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ],
-    caption: "All nine available matched seeds are shown."
+    ]
   },
   {
     model: "FLUX.1-dev",
@@ -71,8 +67,7 @@ const imageExamples = [
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ],
-    caption: "All nine available matched seeds are shown."
+    ]
   }
 ];
 
