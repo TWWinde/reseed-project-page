@@ -7,10 +7,6 @@ const imageMethods = [
 
 const fluxObjectPrompts = [
   {
-    "title": "a photo of a teddy bear",
-    "slug": "flux-teddy-bear"
-  },
-  {
     "title": "a photo of a car",
     "slug": "flux-car"
   },
@@ -21,14 +17,6 @@ const fluxObjectPrompts = [
   {
     "title": "a photo of a chair",
     "slug": "flux-chair"
-  },
-  {
-    "title": "a photo of a backpack",
-    "slug": "flux-backpack"
-  },
-  {
-    "title": "a photo of a handbag",
-    "slug": "flux-handbag"
   },
   {
     "title": "a photo of a coffee mug",
@@ -43,28 +31,8 @@ const fluxObjectPrompts = [
     "slug": "flux-candle"
   },
   {
-    "title": "a photo of a cake",
-    "slug": "flux-cake"
-  },
-  {
     "title": "a photo of a fire hydrant",
     "slug": "flux-fire-hydrant"
-  },
-  {
-    "title": "a photo of a surfboard",
-    "slug": "flux-surfboard"
-  },
-  {
-    "title": "a photo of a vase",
-    "slug": "flux-vase"
-  },
-  {
-    "title": "a photo of a potted plant",
-    "slug": "flux-potted-plant"
-  },
-  {
-    "title": "a photo of a bicycle",
-    "slug": "flux-bicycle"
   }
 ];
 
