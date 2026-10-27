@@ -76,6 +76,12 @@ const imageExamples = [
   },
 ];
 
+function imageSource(item, method, index = 0) {
+  return item.seedSuffixes
+    ? `assets/gallery-curated/${item.slug}/${method.folder}/seed-20261025${String(item.seedSuffixes[index]).padStart(2, "0")}.webp`
+    : `assets/gallery/${item.slug}/${method.folder}/sample-${index}.png`;
+}
+
 function renderGallery(item) {
   const selectedSeeds = item.seedSuffixes;
   const count = selectedSeeds?.length ?? 6;
@@ -117,9 +123,7 @@ function renderGallery(item) {
       const frame = document.createElement("div");
       frame.className = "image-tile";
       const image = document.createElement("img");
-      image.src = selectedSeeds
-        ? `assets/gallery-curated/${item.slug}/${method.folder}/seed-20261025${String(selectedSeeds[index]).padStart(2, "0")}.webp`
-        : `assets/gallery/${item.slug}/${method.folder}/sample-${index}.png`;
+      image.src = imageSource(item, method, index);
       image.alt = `${item.model} ${method.name}, matched example ${index + 1}: ${item.title}`;
       image.loading = "lazy";
       image.decoding = "async";
@@ -135,8 +139,84 @@ function renderGallery(item) {
   return gallery;
 }
 
+function renderImageModel(model, firstSlug) {
+  const examples = imageExamples.filter(item => item.model === model);
+  const firstIndex = examples.findIndex(item => item.slug === firstSlug);
+  if (firstIndex > 0) examples.unshift(...examples.splice(firstIndex, 1));
+  const modelSlug = firstSlug.split("-")[0];
+  const display = document.createElement("section");
+  display.className = "image-model-display";
+  display.setAttribute("aria-labelledby", `image-model-${modelSlug}`);
+  display.innerHTML = `<h3 id="image-model-${modelSlug}" class="image-model-heading"></h3><div id="image-panel-${modelSlug}"></div><div class="video-picker"><div class="video-picker-header"><span>Choose a prompt</span><div class="video-picker-actions"><button type="button" class="image-previous" aria-label="Previous image prompt">←</button><button type="button" class="image-next" aria-label="Next image prompt">→</button></div></div><div class="video-thumbnail-list" role="tablist"></div></div>`;
+  display.querySelector(".image-model-heading").textContent = model;
+  const panel = display.querySelector(`#image-panel-${modelSlug}`);
+  panel.setAttribute("role", "tabpanel");
+  panel.tabIndex = 0;
+  const list = display.querySelector('[role="tablist"]');
+  list.setAttribute("aria-label", `${model} image prompts`);
+  const previous = display.querySelector(".image-previous");
+  const next = display.querySelector(".image-next");
+  let activeIndex = -1;
+  const tabs = examples.map((item, index) => {
+    const tab = document.createElement("button");
+    tab.type = "button";
+    tab.className = "video-thumbnail image-thumbnail";
+    tab.id = `image-tab-${item.slug}`;
+    tab.setAttribute("role", "tab");
+    tab.setAttribute("aria-controls", panel.id);
+    tab.setAttribute("aria-label", item.title);
+    tab.title = item.title;
+    const image = document.createElement("img");
+    image.src = imageSource(item, item.methods[item.methods.length - 1]);
+    image.alt = "";
+    image.width = 150;
+    image.height = 100;
+    image.loading = "lazy";
+    image.decoding = "async";
+    const label = document.createElement("span");
+    label.textContent = item.title.replace(/^a photo of (?:a |an )?/i, "").replace(/^./, letter => letter.toUpperCase());
+    tab.append(image, label);
+    tab.addEventListener("click", () => select(index));
+    tab.addEventListener("keydown", event => {
+      let target;
+      if (event.key === "ArrowRight") target = (index + 1) % examples.length;
+      else if (event.key === "ArrowLeft") target = (index - 1 + examples.length) % examples.length;
+      else if (event.key === "Home") target = 0;
+      else if (event.key === "End") target = examples.length - 1;
+      else return;
+      event.preventDefault();
+      select(target, true);
+    });
+    return tab;
+  });
+  list.append(...tabs);
+  function select(index, focusTab = false) {
+    if (index === activeIndex) return;
+    const item = examples[index];
+    const gallery = renderGallery(item);
+    gallery.querySelector(".gallery-model").remove();
+    panel.replaceChildren(gallery);
+    panel.setAttribute("aria-labelledby", tabs[index].id);
+    activeIndex = index;
+    tabs.forEach((tab, i) => {
+      tab.setAttribute("aria-selected", String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+    });
+    previous.disabled = index === 0;
+    next.disabled = index === examples.length - 1;
+    if (focusTab) tabs[index].focus({ preventScroll: true });
+    list.scrollTo({ left: Math.max(0, tabs[index].offsetLeft - (list.clientWidth - tabs[index].offsetWidth) / 2), behavior: "auto" });
+  }
+  previous.addEventListener("click", () => select(Math.max(0, activeIndex - 1)));
+  next.addEventListener("click", () => select(Math.min(examples.length - 1, activeIndex + 1)));
+  select(0);
+  return display;
+}
+
 document.getElementById("gallery-results").replaceChildren(
-  ...imageExamples.map(renderGallery)
+  renderImageModel("SD3-Medium", "sd3-couch"),
+  renderImageModel("SD3.5-Medium", "sd35-cat"),
+  renderImageModel("FLUX.1-dev", "flux-coffee-mug")
 );
 
 const videoPrompts = {
@@ -232,17 +312,23 @@ const videoMethods = [
   { id: "reseed_300", name: "DMD2 + ReSeed" }
 ];
 
-// Load metadata only for the currently expanded video comparison.
+// Play visible samples and pause them when they leave the viewport.
 const videoLoader = "IntersectionObserver" in window
   ? new IntersectionObserver(entries => {
     for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
       const player = entry.target;
-      player.preload = "metadata";
-      if (player.paused && player.readyState === 0) player.load();
-      videoLoader.unobserve(player);
+      if (entry.isIntersecting) {
+        player.preload = "auto";
+        if (player.closest(".video-prompt-group")?.dataset.autoplayPaused !== "true") {
+          player.autoplay = true;
+          player.play().catch(() => {});
+        }
+      } else {
+        player.autoplay = false;
+        player.pause();
+      }
     }
-  }, { rootMargin: "1000px 0px" })
+  }, { threshold: 0.15 })
   : null;
 
 function renderVideoPrompt(slug, prompt) {
@@ -278,6 +364,8 @@ function renderVideoPrompt(slug, prompt) {
       player.dataset.videoSeed = String(seed);
       player.controls = true;
       player.muted = true;
+      player.defaultMuted = true;
+      player.autoplay = !videoLoader;
       player.loop = true;
       player.playsInline = true;
       player.preload = videoLoader ? "none" : "metadata";
@@ -317,8 +405,10 @@ function renderVideoPrompt(slug, prompt) {
   });
   button.addEventListener("click", () => {
     if (players.some(player => !player.paused)) {
+      group.dataset.autoplayPaused = "true";
       players.forEach(player => player.pause());
     } else {
+      group.dataset.autoplayPaused = "false";
       players.forEach(player => {
         player.currentTime = 0;
         player.play().catch(() => {});
