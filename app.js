@@ -160,143 +160,83 @@ const videoPrompts = {
 const selectedVideoPrompts = {
   "selected_prompt_000": {
     "title": "a black dog wearing halloween costume",
-    "source": "VBench \u00b7 prompt 0 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 0"
   },
   "selected_prompt_009": {
     "title": "a squirrel eating nuts",
-    "source": "VBench \u00b7 prompt 9 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 9"
   },
   "selected_prompt_018": {
     "title": "white rabbit near the fence",
-    "source": "VBench \u00b7 prompt 18 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 18"
   },
   "selected_prompt_020": {
     "title": "close up of wolf",
-    "source": "VBench \u00b7 prompt 20 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 20"
   },
   "selected_prompt_027": {
     "title": "video of parrots perched on bird stand",
-    "source": "VBench \u00b7 prompt 27 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 27"
   },
   "selected_prompt_033": {
     "title": "curious cat sitting and looking around",
-    "source": "VBench \u00b7 prompt 33 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 33"
   },
   "selected_prompt_037": {
     "title": "koala eating leaves from a branch",
-    "source": "VBench \u00b7 prompt 37 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 37"
   },
   "selected_prompt_052": {
     "title": "a pancake tower with chocolate syrup and strawberries on top",
-    "source": "VBench \u00b7 prompt 52 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 52"
   },
   "selected_prompt_076": {
     "title": "house covered in snow",
-    "source": "VBench \u00b7 prompt 76 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 76"
   },
   "selected_prompt_086": {
     "title": "a birthday cake in the plate",
-    "source": "VBench \u00b7 prompt 86 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 86"
   },
   "selected_prompt_106": {
     "title": "fresh salmon salad on a plate",
-    "source": "VBench \u00b7 prompt 106 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 106"
   },
   "selected_prompt_211": {
     "title": "beautiful flower decoration",
-    "source": "VBench \u00b7 prompt 211 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 211"
   },
   "selected_prompt_224": {
     "title": "bamboo leaves backlit by the sun",
-    "source": "VBench \u00b7 prompt 224 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 224"
   },
   "selected_prompt_229": {
     "title": "variety of succulent plants on a garden",
-    "source": "VBench \u00b7 prompt 229 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 229"
   },
   "selected_prompt_233": {
     "title": "tall forest trees on a misty morning",
-    "source": "VBench \u00b7 prompt 233 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 233"
   },
   "selected_prompt_255": {
     "title": "mountain view",
-    "source": "VBench \u00b7 prompt 255 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 255"
   },
   "selected_prompt_256": {
     "title": "waterfalls in between mountain",
-    "source": "VBench \u00b7 prompt 256 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 256"
   },
   "selected_prompt_267": {
     "title": "drone footage of waves crashing on beach shore",
-    "source": "VBench \u00b7 prompt 267 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 267"
   },
   "selected_prompt_268": {
     "title": "a scenic view of the golden hour at norway",
-    "source": "VBench \u00b7 prompt 268 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 268"
   },
   "selected_prompt_318": {
     "title": "drone view of an illuminated bridge across a river",
-    "source": "VBench \u00b7 prompt 318 \u00b7 seed 1",
-    "seeds": [
-      1
-    ]
+    "source": "VBench \u00b7 prompt 318"
   }
 };
 
@@ -306,6 +246,19 @@ const videoMethods = [
   { id: "dfd", name: "DFD" },
   { id: "reseed_300", name: "DMD2 + ReSeed" }
 ];
+
+// Load video metadata near the viewport while keeping every prompt visible.
+const videoLoader = "IntersectionObserver" in window
+  ? new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const player = entry.target;
+      player.preload = "metadata";
+      if (player.paused && player.readyState === 0) player.load();
+      videoLoader.unobserve(player);
+    }
+  }, { rootMargin: "1000px 0px" })
+  : null;
 
 function renderVideoPrompt(slug, prompt) {
   const seeds = prompt.seeds ?? videoSeeds;
@@ -339,7 +292,8 @@ function renderVideoPrompt(slug, prompt) {
       player.muted = true;
       player.loop = true;
       player.playsInline = true;
-      player.preload = "metadata";
+      player.preload = videoLoader ? "none" : "metadata";
+      if (videoLoader) videoLoader.observe(player);
       player.setAttribute("aria-label", `${method.name}, seed ${seed}: ${prompt.title}`);
       strip.append(player);
     }
