@@ -232,7 +232,7 @@ const videoMethods = [
   { id: "reseed_300", name: "DMD2 + ReSeed" }
 ];
 
-// Load video metadata near the viewport while keeping every prompt visible.
+// Load metadata only for the currently expanded video comparison.
 const videoLoader = "IntersectionObserver" in window
   ? new IntersectionObserver(entries => {
     for (const entry of entries) {
@@ -303,13 +303,109 @@ function renderVideoPrompt(slug, prompt) {
   return group;
 }
 
-document.getElementById("video-prompt-results").replaceChildren(
-  ...Object.entries(videoPrompts).map(([slug, prompt]) => renderVideoPrompt(slug, prompt))
-);
+const videoPromptLabels = {
+  a_latte_art: "Latte art",
+  b_ceramic_plant_pot: "Plant pot",
+  c_sparklers: "Sparklers",
+  d_wooden_pathway: "Wooden pathway",
+  selected_prompt_000: "Halloween dog",
+  selected_prompt_009: "Squirrel",
+  selected_prompt_018: "White rabbit",
+  selected_prompt_020: "Wolf",
+  selected_prompt_027: "Parrots",
+  selected_prompt_037: "Koala",
+  selected_prompt_052: "Pancakes",
+  selected_prompt_106: "Salmon salad",
+  selected_prompt_211: "Flowers",
+  selected_prompt_224: "Bamboo",
+  selected_prompt_229: "Succulents",
+  selected_prompt_233: "Misty forest",
+  selected_prompt_255: "Mountains",
+  selected_prompt_256: "Waterfall",
+  selected_prompt_267: "Ocean waves",
+  selected_prompt_268: "Golden hour"
+};
 
-document.getElementById("selected-video-results").replaceChildren(
-  ...Object.entries(selectedVideoPrompts).map(([slug, prompt]) => renderVideoPrompt(slug, prompt))
-);
+const videoEntries = Object.entries({ ...videoPrompts, ...selectedVideoPrompts });
+const videoPanel = document.getElementById("video-prompt-results");
+const videoTabs = document.getElementById("video-prompt-tabs");
+const previousVideo = document.getElementById("video-previous");
+const nextVideo = document.getElementById("video-next");
+let activeVideoIndex = -1;
+let activeVideoGroup = null;
+
+const videoTabButtons = videoEntries.map(([slug, prompt], index) => {
+  const tab = document.createElement("button");
+  tab.type = "button";
+  tab.className = "video-thumbnail";
+  tab.id = `video-tab-${slug}`;
+  tab.setAttribute("role", "tab");
+  tab.setAttribute("aria-controls", "video-prompt-results");
+  tab.setAttribute("aria-selected", "false");
+  tab.setAttribute("aria-label", prompt.title);
+  tab.title = prompt.title;
+  tab.tabIndex = -1;
+  const image = document.createElement("img");
+  image.src = `assets/wan-thumbnails/${slug}.webp`;
+  image.alt = "";
+  image.width = 312;
+  image.height = 180;
+  image.loading = "lazy";
+  image.decoding = "async";
+  const label = document.createElement("span");
+  label.textContent = videoPromptLabels[slug];
+  tab.append(image, label);
+  tab.addEventListener("click", () => selectVideoPrompt(index));
+  tab.addEventListener("keydown", event => {
+    let next;
+    if (event.key === "ArrowRight") next = (index + 1) % videoEntries.length;
+    else if (event.key === "ArrowLeft") next = (index - 1 + videoEntries.length) % videoEntries.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = videoEntries.length - 1;
+    else return;
+    event.preventDefault();
+    selectVideoPrompt(next, true);
+  });
+  return tab;
+});
+videoTabs.append(...videoTabButtons);
+
+function selectVideoPrompt(index, focusTab = false) {
+  if (index === activeVideoIndex) return;
+  if (activeVideoGroup) {
+    for (const player of activeVideoGroup.querySelectorAll("video")) {
+      player.pause();
+      videoLoader?.unobserve(player);
+      player.removeAttribute("src");
+      player.load();
+    }
+  }
+  const [slug, prompt] = videoEntries[index];
+  const group = renderVideoPrompt(slug, prompt);
+  group.id = `video-panel-${slug}`;
+  videoPanel.setAttribute("role", "tabpanel");
+  videoPanel.setAttribute("aria-labelledby", `video-tab-${slug}`);
+  videoPanel.tabIndex = 0;
+  videoPanel.replaceChildren(group);
+  activeVideoIndex = index;
+  activeVideoGroup = group;
+  videoTabButtons.forEach((tab, i) => {
+    tab.setAttribute("aria-selected", String(i === index));
+    tab.tabIndex = i === index ? 0 : -1;
+  });
+  previousVideo.disabled = index === 0;
+  nextVideo.disabled = index === videoEntries.length - 1;
+  const tab = videoTabButtons[index];
+  if (focusTab) tab.focus({ preventScroll: true });
+  // Scroll only the thumbnail strip, keeping the page's vertical position stable.
+  const targetLeft = tab.offsetLeft - (videoTabs.clientWidth - tab.offsetWidth) / 2;
+  videoTabs.scrollTo({ left: Math.max(0, targetLeft), behavior: "auto" });
+}
+
+previousVideo.addEventListener("click", () => selectVideoPrompt(Math.max(0, activeVideoIndex - 1)));
+nextVideo.addEventListener("click", () => selectVideoPrompt(Math.min(videoEntries.length - 1, activeVideoIndex + 1)));
+const linkedVideo = videoEntries.findIndex(([slug]) => location.hash === `#video-title-${slug}`);
+selectVideoPrompt(linkedVideo >= 0 ? linkedVideo : 0);
 
 const copyButton = document.getElementById("copy-citation");
 copyButton?.addEventListener("click", async () => {

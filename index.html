@@ -11,9 +11,9 @@
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261027-title-tldr">
+  <link rel="stylesheet" href="style.css?v=20261027-video-picker">
   <link rel="stylesheet" href="method-animation.css?v=20261027-readable">
-  <script src="app.js?v=20261027-readable" defer></script>
+  <script src="app.js?v=20261027-video-picker" defer></script>
   <script src="method-animation.js?v=20261027-readable" defer></script>
 </head>
 <body>
@@ -84,10 +84,13 @@
       <div class="section-heading"><h2>Image and video examples</h2><p>Each column uses the same prompt and initial noise across methods. For SD3-Medium and SD3.5-Medium, we show nine of twelve seeds chosen by visual review of ReSeed image quality and variety. FLUX examples use all nine available seeds. All images are uncropped; the table above uses the full evaluation set.</p></div>
       <div id="gallery-results" aria-label="Image comparisons for SD3-Medium, SD3.5-Medium, and FLUX.1-dev"></div>
       <div class="video-results" aria-labelledby="wan-heading">
-        <div class="video-intro"><div><span class="gallery-model">Wan2.1-T2V-1.3B</span><h3 id="wan-heading">Video results</h3><p>DMD2, DFD, and DMD2 + ReSeed on 20 prompts, with eight matched initial noise samples per method. Videos contain 81 frames at 16 fps.</p><span class="video-scroll-hint">Scroll horizontally to view all eight samples.</span></div></div>
+        <div class="video-intro"><div><span class="gallery-model">Wan2.1-T2V-1.3B</span><h3 id="wan-heading">Video results</h3><p>Choose one of 20 prompts using the thumbnails below. Each comparison shows eight matched noise samples for DMD2, DFD, and DMD2 + ReSeed. Videos contain 81 frames at 16 fps.</p><span class="video-scroll-hint">Scroll horizontally to view all eight samples.</span></div></div>
         <div id="video-prompt-results"></div>
         <div id="more-videos-heading" aria-hidden="true"></div>
-        <div id="selected-video-results" aria-labelledby="wan-heading"></div>
+        <div class="video-picker">
+          <div class="video-picker-header"><span>Choose a prompt</span><div class="video-picker-actions"><button id="video-previous" type="button" aria-label="Previous video prompt" title="Previous prompt">←</button><button id="video-next" type="button" aria-label="Next video prompt" title="Next prompt">→</button></div></div>
+          <div id="video-prompt-tabs" class="video-thumbnail-list" role="tablist" aria-label="Video prompts"></div>
+        </div>
         <p class="video-note">On the full 320-prompt VBench set, video-level DINO diversity is <strong>0.3374 (DMD2), 0.3358 (DFD), and 0.4290 (DMD2 + ReSeed)</strong>. DFD uses the released checkpoint from <a href="https://arxiv.org/abs/2606.18478" target="_blank" rel="noopener">Data-Forcing Distillation</a>; ReSeed was trained for 300 updates.</p>
       </div>
     </div></section>
