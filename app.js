@@ -5,6 +5,69 @@ const imageMethods = [
   { name: "DMD + ReSeed", folder: "reseed" }
 ];
 
+const fluxObjectPrompts = [
+  {
+    "title": "a photo of a teddy bear",
+    "slug": "flux-teddy-bear"
+  },
+  {
+    "title": "a photo of a car",
+    "slug": "flux-car"
+  },
+  {
+    "title": "a photo of a couch",
+    "slug": "flux-couch"
+  },
+  {
+    "title": "a photo of a chair",
+    "slug": "flux-chair"
+  },
+  {
+    "title": "a photo of a backpack",
+    "slug": "flux-backpack"
+  },
+  {
+    "title": "a photo of a handbag",
+    "slug": "flux-handbag"
+  },
+  {
+    "title": "a photo of a coffee mug",
+    "slug": "flux-coffee-mug"
+  },
+  {
+    "title": "a photo of a table lamp",
+    "slug": "flux-table-lamp"
+  },
+  {
+    "title": "a photo of a candle",
+    "slug": "flux-candle"
+  },
+  {
+    "title": "a photo of a cake",
+    "slug": "flux-cake"
+  },
+  {
+    "title": "a photo of a fire hydrant",
+    "slug": "flux-fire-hydrant"
+  },
+  {
+    "title": "a photo of a surfboard",
+    "slug": "flux-surfboard"
+  },
+  {
+    "title": "a photo of a vase",
+    "slug": "flux-vase"
+  },
+  {
+    "title": "a photo of a potted plant",
+    "slug": "flux-potted-plant"
+  },
+  {
+    "title": "a photo of a bicycle",
+    "slug": "flux-bicycle"
+  }
+];
+
 const imageExamples = [
   { model: "SD3-Medium", title: "A photo of a backpack", slug: "sd3-backpack", seedSuffixes: [0, 1, 2, 3, 4, 6, 7, 9, 11], methods: imageMethods },
   { model: "SD3-Medium", title: "A photo of a dog", slug: "sd3-dog", seedSuffixes: [0, 1, 2, 3, 4, 5, 7, 9, 11], methods: imageMethods },
@@ -14,28 +77,16 @@ const imageExamples = [
   { model: "SD3.5-Medium", title: "A photo of a table lamp", slug: "sd35-lamp", seedSuffixes: [0, 1, 2, 3, 6, 7, 8, 9, 10], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a cat", slug: "sd35-cat", seedSuffixes: [0, 2, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
   { model: "SD3.5-Medium", title: "A photo of a teddy bear", slug: "sd35-teddy", seedSuffixes: [0, 1, 3, 5, 7, 8, 9, 10, 11], methods: imageMethods },
-  {
+  ...fluxObjectPrompts.map(item => ({
+    ...item,
     model: "FLUX.1-dev",
-    title: "a photo of dog",
-    slug: "flux-dog",
     seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
+    description: "SenseFlow and SenseFlow + ReSeed with matched initial noise.",
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
     ]
-  },
-  {
-    model: "FLUX.1-dev",
-    title: "a photo of cat",
-    slug: "flux-cat",
-    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
-    methods: [
-      { name: "SenseFlow", folder: "senseflow" },
-      { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ]
-  },
+  })),
   {
     model: "FLUX.1-dev",
     title: "a photo of bird",
@@ -58,17 +109,6 @@ const imageExamples = [
       { name: "SenseFlow + ReSeed", folder: "reseed" }
     ]
   },
-  {
-    model: "FLUX.1-dev",
-    title: "a photo of rabbit",
-    slug: "flux-rabbit",
-    seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
-    methods: [
-      { name: "SenseFlow", folder: "senseflow" },
-      { name: "SenseFlow + ReSeed", folder: "reseed" }
-    ]
-  }
 ];
 
 function renderGallery(item) {
