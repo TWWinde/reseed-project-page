@@ -88,7 +88,11 @@ function renderGallery(item) {
   gallery.querySelector(".gallery-model").textContent = item.model;
   gallery.querySelector("h3").textContent = item.title;
   gallery.querySelector(".gallery-description").textContent = item.description ?? "Nine curated matched initial noises across DMD, GAD, DP-DMD, and DMD + ReSeed.";
-  gallery.querySelector(".gallery-caption").textContent = item.caption ?? "Nine of 12 matched seeds, selected for ReSeed image quality and variety.";
+  if (item.caption) {
+    gallery.querySelector(".gallery-caption").textContent = item.caption;
+  } else {
+    gallery.querySelector(".gallery-footer").remove();
+  }
   const headings = gallery.querySelector(".image-seed-headings");
   for (let index = 0; index < count; index++) {
     const heading = document.createElement("span");
