@@ -88,7 +88,7 @@ function renderGallery(item) {
   const gallery = document.createElement("section");
   gallery.className = "gallery-display";
   gallery.setAttribute("aria-labelledby", `gallery-title-${item.slug}`);
-  gallery.innerHTML = `<div class="gallery-meta"><div><span class="gallery-model"></span><h3 id="gallery-title-${item.slug}"></h3></div><p class="gallery-description"></p></div><div class="image-matrix-scroll" role="region" tabindex="0"><div class="image-matrix"><div class="image-seed-headings" aria-hidden="true"></div><div class="gallery-matrix"></div></div></div><div class="gallery-footer"><span class="gallery-caption"></span></div>`;
+  gallery.innerHTML = `<div class="gallery-meta"><div><span class="gallery-model"></span><h3 id="gallery-title-${item.slug}"></h3></div><p class="gallery-description"></p></div><div class="image-matrix-scroll" role="region" tabindex="0"><div class="image-matrix"><div class="gallery-matrix"></div></div></div><div class="gallery-footer"><span class="gallery-caption"></span></div>`;
   gallery.classList.add(count === 9 ? "gallery-nine" : "gallery-six");
   gallery.querySelector(".image-matrix-scroll").setAttribute("aria-label", `${item.model}: ${item.title}; ${item.methods.length} image methods across ${count} matched initial noises`);
   gallery.querySelector(".gallery-model").textContent = item.model;
@@ -102,12 +102,6 @@ function renderGallery(item) {
     gallery.querySelector(".gallery-caption").textContent = item.caption;
   } else {
     gallery.querySelector(".gallery-footer").remove();
-  }
-  const headings = gallery.querySelector(".image-seed-headings");
-  for (let index = 0; index < count; index++) {
-    const heading = document.createElement("span");
-    heading.textContent = `Sample ${index + 1}`;
-    headings.append(heading);
   }
   const rows = [];
   for (let methodIndex = 0; methodIndex < item.methods.length; methodIndex++) {
