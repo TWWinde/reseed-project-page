@@ -11,7 +11,7 @@
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261027-five-seeds">
+  <link rel="stylesheet" href="style.css?v=20261027-tldr-update">
   <link rel="stylesheet" href="method-animation.css?v=20261027-readable">
   <script src="app.js?v=20261027-five-seeds" defer></script>
   <script src="method-animation.js?v=20261027-readable" defer></script>
@@ -34,7 +34,7 @@
       <div class="eyebrow"><span class="eyebrow-line"></span> ReSeed <span class="eyebrow-separator">·</span> 2026</div>
       <h1><span class="hero-title-line">A <em>first-step bias</em> restores lost diversity</span>
         <span class="hero-title-line">in diffusion model distillation.</span></h1>
-      <div class="hero-tldr" aria-label="TL;DR"><p><strong class="hero-tldr-label">TL;DR</strong> ReSeed restores diversity in distilled image and video models by training residual biases for the first denoising step. The original student stays frozen, with <strong>0.002–0.004% additional trainable parameters</strong> and <strong>no extra sampling steps</strong>.</p></div>
+      <div class="hero-tldr" aria-label="TL;DR"><p><strong class="hero-tldr-label">TL;DR</strong> ReSeed restores diversity in distilled image and video diffusion models by training a bias adaptor for the first denoising step. The original student stays frozen, with <strong>0.002–0.004% additional trainable parameters</strong> and <strong>no extra sampling steps</strong>.</p></div>
       <div class="authors" aria-label="Authors">Wenwu Tang <span>·</span> Dong Wang <span>·</span> Yun Cheng <span>·</span> Olga Saukh</div>
       <p class="affiliations">Graz University of Technology · Swiss Data Science Center · Complexity Science Hub</p>
       <div class="hero-actions"><a class="button button-primary" href="#method">Method <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#examples">Generated samples <span aria-hidden="true">↗</span></a></div>
@@ -45,13 +45,6 @@
         <figcaption>SD3.5-Medium with 25 matched initial noise samples per method. From left: teacher, DMD student, and DMD + ReSeed.</figcaption>
       </figure>
     </section>
-
-    <section class="summary-band" aria-label="Paper at a glance"><div class="shell summary-grid">
-      <div><strong>4</strong><span>denoising steps<br>at inference</span></div>
-      <div><strong>0.00196%</strong><span>trainable parameters<br>for FLUX.1-dev</span></div>
-      <div><strong>+48.3%</strong><span>DINOv3 diversity<br>for FLUX.1-dev</span></div>
-      <div><strong>0</strong><span>extra inference<br>denoising steps</span></div>
-    </div></section>
 
     <section id="method" class="section method-section"><div class="shell">
       <div class="section-heading"><h2>Method</h2><p>ReSeed adds trainable biases to a frozen student. They are trained on the first denoising interval and switched off for later steps.</p></div>
