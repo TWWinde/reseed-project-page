@@ -88,3 +88,15 @@ h1 em{font-style:normal;color:var(--mint-dark)}
 .video-play-group:hover{background:#43706e}
 .video-intro .video-scroll-hint{display:block;text-align:left;margin-top:10px}
 @media(max-width:740px){.video-matrix{min-width:1280px}.video-play-group{margin-top:14px}.video-method-row h5{font-size:19px}}
+
+/* Additional single-noise comparisons: one prompt per row, one column per method. */
+.video-more-heading{margin:48px 0 22px;padding-top:30px;border-top:1px solid #5a6366}
+.video-more-heading h3{font:700 clamp(27px,3vw,39px)/1.18 Georgia,serif;letter-spacing:-.045em;margin:6px 0 8px}
+.video-more-heading p{margin:0;color:#c3cccd;font-size:14px}
+.video-single-seed .video-matrix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;min-width:0}
+.video-single-seed .video-strip{display:block}
+.video-single-seed .video-method-row{min-width:0;border-top:0;margin-top:0;padding:12px 0}
+.video-single-seed .video-method-row-ours{padding:12px}
+.video-single-seed .video-method-row-ours h5{padding-left:0}
+.video-single-seed .video-method-row h5{flex-wrap:wrap;gap:6px 12px;font-size:20px}
+@media(max-width:740px){.video-single-seed .video-matrix{min-width:780px}.video-single-seed .video-method-row h5{font-size:18px}}
