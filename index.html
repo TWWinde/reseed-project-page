@@ -11,9 +11,9 @@
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261026-all-models">
+  <link rel="stylesheet" href="style.css?v=20261027-eight-videos">
   <link rel="stylesheet" href="method-animation.css?v=20261026-explainer">
-  <script src="app.js?v=20261026-all-models" defer></script>
+  <script src="app.js?v=20261027-eight-videos" defer></script>
   <script src="method-animation.js?v=20261026-explainer" defer></script>
 </head>
 <body>
@@ -95,15 +95,9 @@
       <div class="section-heading"><div class="section-kicker">04 — QUALITATIVE RESULTS</div><h2>Compare matched-noise generations.</h2><p>Each image row shows full, uncropped generations from the same prompt and initial noises. For every SD3 and SD3.5 prompt, we selected nine of 12 matched seeds by visually reviewing ReSeed image quality and variety. For FLUX.1-dev, all nine available seeds are shown for each of five prompts. These examples illustrate the outputs; the quantitative results above use the paper's evaluation protocol. The Wan2.1 comparison below plays original generated videos.</p></div>
       <div id="gallery-results" aria-label="Image comparisons for SD3-Medium, SD3.5-Medium, and FLUX.1-dev"></div>
       <div class="video-results" aria-labelledby="wan-heading">
-        <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Five matched seeds, side by side.</h3><p>Choose a prompt to compare five initial noises across DMD2, DFD, and ReSeed. Each clip has 81 frames at 16 fps.</p></div><button id="play-all-videos" class="button button-primary" type="button">Play all 15 videos</button></div>
-        <div class="video-prompt-tabs" role="group" aria-label="Choose a video prompt"><button type="button" data-video-prompt="a_latte_art" aria-pressed="true">Latte art</button><button type="button" data-video-prompt="b_ceramic_plant_pot" aria-pressed="false">Plant pot</button><button type="button" data-video-prompt="c_sparklers" aria-pressed="false">Sparklers</button><button type="button" data-video-prompt="d_wooden_pathway" aria-pressed="false">Wooden pathway</button></div>
-        <div class="video-selection"><div><span id="video-prompt-source" class="gallery-model">71-prompt study · prompt 22</span><h4 id="video-prompt-title">A barista pours latte art into a cappuccino</h4></div><span class="video-scroll-hint">Scroll sideways on a narrow screen to see all five seeds →</span></div>
-        <div class="video-matrix-scroll" role="region" aria-label="Three video methods across five matched initial noise seeds" tabindex="0"><div class="video-matrix">
-          <section class="video-method-row" aria-labelledby="dmd2-row-heading"><h4 id="dmd2-row-heading">DMD2 <span>4 steps</span></h4><div class="video-strip" data-video-strip="dmd2"></div></section>
-          <section class="video-method-row" aria-labelledby="dfd-row-heading"><h4 id="dfd-row-heading">DFD <span>4 steps</span></h4><div class="video-strip" data-video-strip="dfd"></div></section>
-          <section class="video-method-row video-method-row-ours" aria-labelledby="reseed-row-heading"><h4 id="reseed-row-heading">DMD2 + ReSeed <span>4 steps</span></h4><div class="video-strip" data-video-strip="reseed_300"></div></section>
-        </div></div>
-        <p class="video-note">The clips show five matched initial noises per prompt. Across the full 320-prompt VBench evaluation with eight noises per prompt, video-level DINO diversity is <strong>0.3374 (DMD2), 0.3358 (DFD), and 0.4290 (DMD2 + ReSeed)</strong>. DFD uses the released checkpoint from <a href="https://arxiv.org/abs/2606.18478" target="_blank" rel="noopener">Data-Forcing Distillation</a>; ReSeed was trained for 300 updates.</p>
+        <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Eight matched seeds. Every prompt.</h3><p>All four prompts are shown below. DMD2 and ReSeed show all eight initial noises, aligned by column. DFD currently has five matching videos; its unavailable samples are marked. Each clip has 81 frames at 16 fps.</p><span class="video-scroll-hint">Scroll sideways on a narrow screen to see all eight videos →</span></div></div>
+        <div id="video-prompt-results"></div>
+        <p class="video-note">DMD2 and ReSeed show eight matched initial noises for each prompt. DFD videos for seeds 1, 3, and 5 are not yet available on this page. Across the full 320-prompt VBench evaluation with eight noises per prompt, video-level DINO diversity is <strong>0.3374 (DMD2), 0.3358 (DFD), and 0.4290 (DMD2 + ReSeed)</strong>. DFD uses the released checkpoint from <a href="https://arxiv.org/abs/2606.18478" target="_blank" rel="noopener">Data-Forcing Distillation</a>; ReSeed was trained for 300 updates.</p>
       </div>
     </div></section>
 

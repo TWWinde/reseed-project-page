@@ -150,66 +150,84 @@ const videoPrompts = {
   }
 };
 
-const promptButtons = [...document.querySelectorAll("[data-video-prompt]")];
-const videoSeeds = [0, 2, 4, 6, 7];
-const methodNames = { dmd2: "DMD2", dfd: "DFD", reseed_300: "DMD2 plus ReSeed" };
-for (const strip of document.querySelectorAll("[data-video-strip]")) {
-  for (const seed of videoSeeds) {
-    const player = document.createElement("video");
-    player.dataset.videoMethod = strip.dataset.videoStrip;
-    player.dataset.videoSeed = String(seed);
-    player.controls = true;
-    player.muted = true;
-    player.loop = true;
-    player.playsInline = true;
-    player.preload = "metadata";
-    player.setAttribute("aria-label", `${methodNames[strip.dataset.videoStrip]}, seed ${seed}, selected prompt`);
-    strip.append(player);
-  }
-}
-const videoPlayers = [...document.querySelectorAll("[data-video-method]")];
-const playAll = document.getElementById("play-all-videos");
-let activePrompt = "a_latte_art";
+const videoSeeds = [0, 1, 2, 3, 4, 5, 6, 7];
+const videoMethods = [
+  { id: "dmd2", name: "DMD2" },
+  { id: "dfd", name: "DFD" },
+  { id: "reseed_300", name: "DMD2 + ReSeed" }
+];
 
-function updateVideos() {
-  const prompt = videoPrompts[activePrompt];
-  document.getElementById("video-prompt-title").textContent = prompt.title;
-  document.getElementById("video-prompt-source").textContent = prompt.source;
-  for (const player of videoPlayers) {
-    player.pause();
-    const seed = player.dataset.videoSeed.padStart(3, "0");
-    player.src = `assets/wan/${activePrompt}_seed_${seed}_${player.dataset.videoMethod}.mp4`;
-    player.load();
+function renderVideoPrompt(slug, prompt) {
+  const group = document.createElement("section");
+  group.className = "video-prompt-group";
+  group.setAttribute("aria-labelledby", `video-title-${slug}`);
+  group.innerHTML = `<div class="video-selection"><div><span class="gallery-model"></span><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all 21 videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
+  group.querySelector(".gallery-model").textContent = prompt.source;
+  group.querySelector("h4").textContent = prompt.title;
+  group.querySelector(".video-matrix-scroll").setAttribute("aria-label", `${prompt.title}: three methods across eight matched initial noises`);
+  const matrix = group.querySelector(".video-matrix");
+  for (const method of videoMethods) {
+    const row = document.createElement("section");
+    row.className = "video-method-row" + (method.id === "reseed_300" ? " video-method-row-ours" : "");
+    const title = document.createElement("h5");
+    title.textContent = method.name;
+    const steps = document.createElement("span");
+    steps.textContent = "4 steps";
+    title.append(steps);
+    row.append(title);
+    const strip = document.createElement("div");
+    strip.className = "video-strip";
+    for (const seed of videoSeeds) {
+      // Keep columns aligned when a matched DFD video is not yet available.
+      if (method.id === "dfd" && [1, 3, 5].includes(seed)) {
+        const missing = document.createElement("div");
+        missing.className = "video-unavailable";
+        missing.textContent = "Video not available";
+        missing.setAttribute("aria-label", `DFD video not available for seed ${seed}: ${prompt.title}`);
+        strip.append(missing);
+        continue;
+      }
+      const player = document.createElement("video");
+      const filename = `${slug}_seed_${String(seed).padStart(3, "0")}_${method.id}`;
+      player.src = `assets/wan/${filename}.mp4`;
+      player.dataset.videoMethod = method.id;
+      player.dataset.videoSeed = String(seed);
+      player.controls = true;
+      player.muted = true;
+      player.loop = true;
+      player.playsInline = true;
+      player.preload = "metadata";
+      player.setAttribute("aria-label", `${method.name}, seed ${seed}: ${prompt.title}`);
+      strip.append(player);
+    }
+    row.append(strip);
+    matrix.append(row);
   }
-  playAll.textContent = "Play all 15 videos";
-  for (const button of promptButtons) {
-    const active = button.dataset.videoPrompt === activePrompt;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", String(active));
-  }
-}
-
-for (const button of promptButtons) {
-  button.addEventListener("click", () => {
-    activePrompt = button.dataset.videoPrompt;
-    updateVideos();
+  const players = [...group.querySelectorAll("video")];
+  const button = group.querySelector(".video-play-group");
+  const updateButton = () => {
+    button.textContent = players.some(player => !player.paused) ? "Pause all 21 videos" : "Play all 21 videos";
+  };
+  players.forEach(player => {
+    player.addEventListener("play", updateButton);
+    player.addEventListener("pause", updateButton);
   });
+  button.addEventListener("click", () => {
+    if (players.some(player => !player.paused)) {
+      players.forEach(player => player.pause());
+    } else {
+      players.forEach(player => {
+        player.currentTime = 0;
+        player.play().catch(() => {});
+      });
+    }
+  });
+  return group;
 }
-playAll?.addEventListener("click", () => {
-  const playing = videoPlayers.some((player) => !player.paused);
-  if (playing) {
-    videoPlayers.forEach((player) => player.pause());
-    playAll.textContent = "Play all 15 videos";
-  } else {
-    videoPlayers.forEach((player) => {
-      player.currentTime = 0;
-      player.play().catch(() => {});
-    });
-    playAll.textContent = "Pause all 15 videos";
-  }
-});
 
-updateVideos();
+document.getElementById("video-prompt-results").replaceChildren(
+  ...Object.entries(videoPrompts).map(([slug, prompt]) => renderVideoPrompt(slug, prompt))
+);
 
 const copyButton = document.getElementById("copy-citation");
 copyButton?.addEventListener("click", async () => {
