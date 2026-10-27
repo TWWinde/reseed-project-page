@@ -90,7 +90,11 @@ function renderGallery(item) {
   gallery.querySelector(".image-matrix-scroll").setAttribute("aria-label", `${item.model}: ${item.title}; ${item.methods.length} image methods across ${count} matched initial noises`);
   gallery.querySelector(".gallery-model").textContent = item.model;
   gallery.querySelector("h3").textContent = item.title;
-  gallery.querySelector(".gallery-description").textContent = item.description ?? "Nine curated matched initial noises across DMD, GAD, DP-DMD, and DMD + ReSeed.";
+  if (item.description) {
+    gallery.querySelector(".gallery-description").textContent = item.description;
+  } else {
+    gallery.querySelector(".gallery-description").remove();
+  }
   if (item.caption) {
     gallery.querySelector(".gallery-caption").textContent = item.caption;
   } else {
@@ -250,8 +254,7 @@ function renderVideoPrompt(slug, prompt) {
   const group = document.createElement("section");
   group.className = "video-prompt-group" + (seeds.length === 1 ? " video-single-seed" : "");
   group.setAttribute("aria-labelledby", `video-title-${slug}`);
-  group.innerHTML = `<div class="video-selection"><div><span class="gallery-model"></span><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all ${videoCount} videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
-  group.querySelector(".gallery-model").textContent = prompt.source;
+  group.innerHTML = `<div class="video-selection"><div><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all ${videoCount} videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
   group.querySelector("h4").textContent = prompt.title;
   group.querySelector(".video-matrix-scroll").setAttribute("aria-label", `${prompt.title}: three methods across ${seeds.length} matched initial ${seeds.length === 1 ? "noise" : "noises"}`);
   const matrix = group.querySelector(".video-matrix");
@@ -260,9 +263,6 @@ function renderVideoPrompt(slug, prompt) {
     row.className = "video-method-row" + (method.id === "reseed_300" ? " video-method-row-ours" : "");
     const title = document.createElement("h5");
     title.textContent = method.name;
-    const steps = document.createElement("span");
-    steps.textContent = "4 steps";
-    title.append(steps);
     row.append(title);
     const strip = document.createElement("div");
     strip.className = "video-strip";
