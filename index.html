@@ -13,7 +13,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=20261027-more-videos20">
   <link rel="stylesheet" href="method-animation.css?v=20261026-explainer">
-  <script src="app.js?v=20261027-all-videos-eight-seeds" defer></script>
+  <script src="app.js?v=20261027-video-prompts20" defer></script>
   <script src="method-animation.js?v=20261026-explainer" defer></script>
 </head>
 <body>
@@ -95,11 +95,11 @@
       <div class="section-heading"><div class="section-kicker">04 — QUALITATIVE RESULTS</div><h2>Compare matched-noise generations.</h2><p>Each image row shows full, uncropped generations from the same prompt and initial noises. For every SD3 and SD3.5 prompt, we selected nine of 12 matched seeds by visually reviewing ReSeed image quality and variety. For FLUX.1-dev, each prompt compares SenseFlow with SenseFlow + ReSeed using nine matched initial noises. These examples illustrate the outputs; the quantitative results above use the paper's evaluation protocol. The Wan2.1 comparison below plays original generated videos.</p></div>
       <div id="gallery-results" aria-label="Image comparisons for SD3-Medium, SD3.5-Medium, and FLUX.1-dev"></div>
       <div class="video-results" aria-labelledby="wan-heading">
-        <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Matched-noise video comparisons.</h3><p>All 24 prompts show eight matched initial noises per method. DMD2, DFD, and DMD2 + ReSeed use the same noise in each column. Every clip has 81 frames at 16 fps.</p><span class="video-scroll-hint">Scroll sideways on a narrow screen to see all eight videos →</span></div></div>
+        <div class="video-intro"><div><span class="gallery-model">WAN2.1-T2V-1.3B · ORIGINAL VIDEOS</span><h3 id="wan-heading">Matched-noise video comparisons.</h3><p>All 20 prompts show eight matched initial noises per method. DMD2, DFD, and DMD2 + ReSeed use the same noise in each column. Every clip has 81 frames at 16 fps.</p><span class="video-scroll-hint">Scroll sideways on a narrow screen to see all eight videos →</span></div></div>
         <div id="video-prompt-results"></div>
         <p class="video-note">All three methods show all eight matched initial noises for each of the four prompts. Across the full 320-prompt VBench evaluation with eight noises per prompt, video-level DINO diversity is <strong>0.3374 (DMD2), 0.3358 (DFD), and 0.4290 (DMD2 + ReSeed)</strong>. DFD uses the released checkpoint from <a href="https://arxiv.org/abs/2606.18478" target="_blank" rel="noopener">Data-Forcing Distillation</a>; ReSeed was trained for 300 updates.</p>
-        <div class="video-more-heading"><span class="gallery-model">WAN2.1 · MORE PROMPTS</span><h3 id="more-videos-heading">More video comparisons.</h3><p>Each prompt shows all eight matched seeds (0–7) for DMD2, DFD, and DMD2 + ReSeed. Methods form rows and seeds align by column.</p></div>
-        <div id="selected-video-results" aria-labelledby="more-videos-heading"></div>
+        <div id="more-videos-heading" aria-hidden="true"></div>
+        <div id="selected-video-results" aria-labelledby="wan-heading"></div>
       </div>
     </div></section>
 

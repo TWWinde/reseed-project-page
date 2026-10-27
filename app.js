@@ -178,10 +178,6 @@ const selectedVideoPrompts = {
     "title": "video of parrots perched on bird stand",
     "source": "VBench \u00b7 prompt 27"
   },
-  "selected_prompt_033": {
-    "title": "curious cat sitting and looking around",
-    "source": "VBench \u00b7 prompt 33"
-  },
   "selected_prompt_037": {
     "title": "koala eating leaves from a branch",
     "source": "VBench \u00b7 prompt 37"
@@ -189,14 +185,6 @@ const selectedVideoPrompts = {
   "selected_prompt_052": {
     "title": "a pancake tower with chocolate syrup and strawberries on top",
     "source": "VBench \u00b7 prompt 52"
-  },
-  "selected_prompt_076": {
-    "title": "house covered in snow",
-    "source": "VBench \u00b7 prompt 76"
-  },
-  "selected_prompt_086": {
-    "title": "a birthday cake in the plate",
-    "source": "VBench \u00b7 prompt 86"
   },
   "selected_prompt_106": {
     "title": "fresh salmon salad on a plate",
@@ -233,10 +221,6 @@ const selectedVideoPrompts = {
   "selected_prompt_268": {
     "title": "a scenic view of the golden hour at norway",
     "source": "VBench \u00b7 prompt 268"
-  },
-  "selected_prompt_318": {
-    "title": "drone view of an illuminated bridge across a river",
-    "source": "VBench \u00b7 prompt 318"
   }
 };
 
