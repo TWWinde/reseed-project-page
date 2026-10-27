@@ -113,6 +113,9 @@
  .animation-output{grid-template-columns:repeat(6,24px)}
 }
 
-/* Emphasize the trainable bias added to the frozen student. */
-.animation-network-student .animation-beta{max-width:none;align-self:center;font-size:24px;line-height:1.2;padding:7px 12px;border-width:2px;border-radius:7px;margin:-38px 0 10px;flex-shrink:0}
-@media(max-width:740px){.animation-network-student .animation-beta{font-size:20px;padding:6px 9px;margin-top:-34px}}
+/* Use the same emphasis for bias adaptation during training and inference. */
+.animation-network-student .animation-beta,.animation-step-one .animation-beta{max-width:none;align-self:center;font-size:24px;line-height:1.2;padding:7px 12px;border-width:2px;border-radius:7px;flex-shrink:0}
+.animation-network-student .animation-beta{margin:-38px 0 10px}
+.animation-step-one .animation-beta{top:-28px;margin:0}
+@media(min-width:741px) and (max-width:900px){.animation-inference-stack{padding-top:18px}}
+@media(max-width:740px){.animation-network-student .animation-beta,.animation-step-one .animation-beta{font-size:20px;padding:6px 9px}.animation-network-student .animation-beta{margin-top:-34px}.animation-step-one .animation-beta{top:-23px}}
