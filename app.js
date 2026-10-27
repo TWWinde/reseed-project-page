@@ -49,7 +49,6 @@ const imageExamples = [
     ...item,
     model: "FLUX.1-dev",
     seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "SenseFlow and SenseFlow + ReSeed with matched initial noise.",
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
@@ -60,7 +59,6 @@ const imageExamples = [
     title: "a photo of bird",
     slug: "flux-bird",
     seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }
@@ -71,7 +69,6 @@ const imageExamples = [
     title: "a photo of horse",
     slug: "flux-horse",
     seedSuffixes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    description: "Nine matched initial noises are shown for SenseFlow and SenseFlow + ReSeed.",
     methods: [
       { name: "SenseFlow", folder: "senseflow" },
       { name: "SenseFlow + ReSeed", folder: "reseed" }

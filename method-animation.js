@@ -6,9 +6,9 @@ if (animation) {
   const replay = document.getElementById("animation-replay");
   const caption = document.getElementById("animation-caption");
   const captions = [
-    "From the same initial noise and prompt, the frozen teacher supplies an endpoint for the first student interval. Its displacement gives the target average velocity.",
-    "The student backbone stays frozen. Training changes only the small residual biases β so its first-step velocity matches the fixed teacher target.",
-    "At inference, the learned bias is active in step 1. Steps 2–4 use the original student, with no teacher call or extra denoising step."
+    "The frozen teacher computes the target velocity from the same prompt and initial noise.",
+    "Train only the added biases β to match the teacher velocity. Keep the student weights frozen.",
+    "Apply the learned biases in step 1. Run the original student for steps 2–4."
   ];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let stage = 0;
