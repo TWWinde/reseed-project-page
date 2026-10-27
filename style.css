@@ -124,8 +124,8 @@ tbody tr:hover{background:#f0f8f2}.arrow{color:var(--mint-dark);padding:0 5px}.g
 .video-selection h4{font-size:clamp(24px,2.5vw,32px);line-height:1.35;margin:0;letter-spacing:-.015em;font-weight:650;color:#fff}
 .video-play-group{border:1px solid #8ed1ba;background:#115948;color:#fff;flex-shrink:0}
 .video-play-group:hover{background:#187059}
-.video-matrix{min-width:1440px}
-.video-strip{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+.video-matrix{min-width:0;width:calc(var(--video-matrix-width,160%) + var(--video-extra-gap,6px))}
+.video-strip{display:grid;grid-template-columns:repeat(var(--video-columns,8),minmax(0,1fr));gap:10px}
 .video-method-row{padding:16px 0 20px;border-top:1px solid #426b7b}
 .video-method-row h5{margin:0 0 14px;font-size:22px;font-weight:650;line-height:1.35;color:#fff}
 .video-strip video{display:block;width:100%;aspect-ratio:832/480;object-fit:contain;background:#071c2d;border:1px solid #365c72}
@@ -181,7 +181,7 @@ tbody tr:hover{background:#f0f8f2}.arrow{color:var(--mint-dark);padding:0 5px}.g
   .gallery-display,.video-results{width:calc(100vw - 24px);padding:18px;border-radius:8px}
   .image-method-row h4{font-size:19px}.gallery-meta h3{font-size:26px}
   .video-intro h3{font-size:29px}.video-selection{display:block}.video-selection h4{font-size:25px}
-  .video-play-group{margin-top:16px}.video-matrix{min-width:1280px}
+  .video-play-group{margin-top:16px}.video-matrix{min-width:0}
   .video-method-row h5{font-size:21px}.video-note{font-size:16px}
   .closing-grid{grid-template-columns:1fr;gap:12px}.limitations{margin-top:0}
   .citation-inner{grid-template-columns:1fr;gap:20px}
@@ -214,3 +214,10 @@ tbody tr:hover{background:#f0f8f2}.arrow{color:var(--mint-dark);padding:0 5px}.g
 .video-thumbnail[aria-selected="true"] span{color:#1e54cc}
 .video-thumbnail:focus-visible{outline:3px solid #b5f4df;outline-offset:3px}
 @media(max-width:740px){.video-thumbnail{flex-basis:140px}.video-thumbnail img{height:79px}.video-picker-header{font-size:16px}}
+
+/* Five full-width columns; one horizontal control moves all methods together. */
+.video-group-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;flex-shrink:0}
+.video-seed-toggle{border:1px solid #8ed1ba;background:#115948;color:#fff;white-space:nowrap}
+.video-seed-toggle:hover{background:#187059}
+.video-method-row h5{position:sticky;left:0;width:max-content;max-width:100%;z-index:1;background:var(--navy);padding-right:12px}
+@media(max-width:740px){.video-group-actions{margin-top:16px;gap:8px}.video-group-actions .button{margin-top:0;padding:9px 12px;min-height:44px;width:auto}}

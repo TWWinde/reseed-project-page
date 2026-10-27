@@ -247,11 +247,18 @@ const videoLoader = "IntersectionObserver" in window
 
 function renderVideoPrompt(slug, prompt) {
   const seeds = prompt.seeds ?? videoSeeds;
+  const firstSeeds = [...new Set([...seeds.slice(0, 3), ...seeds.slice(-2)])];
+  const orderedSeeds = [...firstSeeds, ...seeds.filter(seed => !firstSeeds.includes(seed))];
+  const visibleSeedCount = Math.min(5, seeds.length);
+  const widthRatio = seeds.length / visibleSeedCount;
   const videoCount = seeds.length * videoMethods.length;
   const group = document.createElement("section");
   group.className = "video-prompt-group" + (seeds.length === 1 ? " video-single-seed" : "");
   group.setAttribute("aria-labelledby", `video-title-${slug}`);
-  group.innerHTML = `<div class="video-selection"><div><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all ${videoCount} videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
+  group.style.setProperty("--video-columns", String(seeds.length));
+  group.style.setProperty("--video-matrix-width", `${widthRatio * 100}%`);
+  group.style.setProperty("--video-extra-gap", `${Math.round((widthRatio - 1) * 10 * 1000) / 1000}px`);
+  group.innerHTML = `<div class="video-selection"><div><h4 id="video-title-${slug}"></h4></div><div class="video-group-actions"><button class="button video-play-group" type="button">Play all ${videoCount} videos</button><button class="button video-seed-toggle" type="button" aria-controls="video-samples-${slug}" aria-label="Show remaining matched seeds">More samples →</button></div></div><div id="video-samples-${slug}" class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
   group.querySelector("h4").textContent = prompt.title;
   group.querySelector(".video-matrix-scroll").setAttribute("aria-label", `${prompt.title}: three methods across ${seeds.length} matched initial ${seeds.length === 1 ? "noise" : "noises"}`);
   const matrix = group.querySelector(".video-matrix");
@@ -263,7 +270,7 @@ function renderVideoPrompt(slug, prompt) {
     row.append(title);
     const strip = document.createElement("div");
     strip.className = "video-strip";
-    for (const seed of seeds) {
+    for (const seed of orderedSeeds) {
       const player = document.createElement("video");
       const filename = `${slug}_seed_${String(seed).padStart(3, "0")}_${method.id}`;
       player.src = `assets/wan/${filename}.mp4`;
@@ -281,6 +288,24 @@ function renderVideoPrompt(slug, prompt) {
     row.append(strip);
     matrix.append(row);
   }
+  const sampleViewport = group.querySelector(".video-matrix-scroll");
+  const seedToggle = group.querySelector(".video-seed-toggle");
+  seedToggle.hidden = seeds.length <= visibleSeedCount;
+  const updateSeedToggle = () => {
+    const maximum = sampleViewport.scrollWidth - sampleViewport.clientWidth;
+    const atEnd = maximum > 1 && sampleViewport.scrollLeft >= maximum - 2;
+    seedToggle.textContent = atEnd ? "← First samples" : "More samples →";
+    seedToggle.setAttribute("aria-label", atEnd ? "Show first five matched seeds" : "Show remaining matched seeds");
+  };
+  seedToggle.addEventListener("click", () => {
+    const maximum = sampleViewport.scrollWidth - sampleViewport.clientWidth;
+    const atEnd = maximum > 1 && sampleViewport.scrollLeft >= maximum - 2;
+    sampleViewport.scrollTo({
+      left: atEnd ? 0 : maximum,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    });
+  });
+  sampleViewport.addEventListener("scroll", updateSeedToggle, { passive: true });
   const players = [...group.querySelectorAll("video")];
   const button = group.querySelector(".video-play-group");
   const updateButton = () => {
