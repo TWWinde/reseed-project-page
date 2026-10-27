@@ -11,7 +11,7 @@
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261027-readable">
+  <link rel="stylesheet" href="style.css?v=20261027-title-tldr">
   <link rel="stylesheet" href="method-animation.css?v=20261027-readable">
   <script src="app.js?v=20261027-readable" defer></script>
   <script src="method-animation.js?v=20261027-readable" defer></script>
@@ -32,8 +32,9 @@
   <main id="main">
     <section id="top" class="hero shell">
       <div class="eyebrow"><span class="eyebrow-line"></span> ReSeed <span class="eyebrow-separator">·</span> 2026</div>
-      <h1>A <em>first-step bias</em> restores lost diversity in diffusion model distillation.</h1>
-      <p class="hero-deck">ReSeed restores sample diversity in a distilled diffusion model by training residual biases for the first denoising step. The original student weights remain frozen.</p>
+      <h1><span class="hero-title-line">A <em>first-step bias</em> restores lost diversity</span>
+        <span class="hero-title-line">in diffusion model distillation.</span></h1>
+      <div class="hero-tldr" aria-label="TL;DR"><p><strong class="hero-tldr-label">TL;DR</strong> ReSeed restores diversity in distilled image and video models by training residual biases for the first denoising step. The original student stays frozen, with <strong>0.002–0.004% additional trainable parameters</strong> and <strong>no extra sampling steps</strong>.</p></div>
       <div class="authors" aria-label="Authors">Wenwu Tang <span>·</span> Dong Wang <span>·</span> Yun Cheng <span>·</span> Olga Saukh</div>
       <p class="affiliations">Graz University of Technology · Swiss Data Science Center · Complexity Science Hub</p>
       <div class="hero-actions"><a class="button button-primary" href="#method">Method <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#examples">Generated samples <span aria-hidden="true">↗</span></a></div>
