@@ -161,7 +161,7 @@ function renderVideoPrompt(slug, prompt) {
   const group = document.createElement("section");
   group.className = "video-prompt-group";
   group.setAttribute("aria-labelledby", `video-title-${slug}`);
-  group.innerHTML = `<div class="video-selection"><div><span class="gallery-model"></span><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all 21 videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
+  group.innerHTML = `<div class="video-selection"><div><span class="gallery-model"></span><h4 id="video-title-${slug}"></h4></div><button class="button video-play-group" type="button">Play all 24 videos</button></div><div class="video-matrix-scroll" role="region" tabindex="0"><div class="video-matrix"></div></div>`;
   group.querySelector(".gallery-model").textContent = prompt.source;
   group.querySelector("h4").textContent = prompt.title;
   group.querySelector(".video-matrix-scroll").setAttribute("aria-label", `${prompt.title}: three methods across eight matched initial noises`);
@@ -178,15 +178,6 @@ function renderVideoPrompt(slug, prompt) {
     const strip = document.createElement("div");
     strip.className = "video-strip";
     for (const seed of videoSeeds) {
-      // Keep columns aligned when a matched DFD video is not yet available.
-      if (method.id === "dfd" && [1, 3, 5].includes(seed)) {
-        const missing = document.createElement("div");
-        missing.className = "video-unavailable";
-        missing.textContent = "Video not available";
-        missing.setAttribute("aria-label", `DFD video not available for seed ${seed}: ${prompt.title}`);
-        strip.append(missing);
-        continue;
-      }
       const player = document.createElement("video");
       const filename = `${slug}_seed_${String(seed).padStart(3, "0")}_${method.id}`;
       player.src = `assets/wan/${filename}.mp4`;
@@ -206,7 +197,7 @@ function renderVideoPrompt(slug, prompt) {
   const players = [...group.querySelectorAll("video")];
   const button = group.querySelector(".video-play-group");
   const updateButton = () => {
-    button.textContent = players.some(player => !player.paused) ? "Pause all 21 videos" : "Play all 21 videos";
+    button.textContent = players.some(player => !player.paused) ? "Pause all 24 videos" : "Play all 24 videos";
   };
   players.forEach(player => {
     player.addEventListener("play", updateButton);

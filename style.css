@@ -88,5 +88,3 @@ h1 em{font-style:normal;color:var(--mint-dark)}
 .video-play-group:hover{background:#43706e}
 .video-intro .video-scroll-hint{display:block;text-align:left;margin-top:10px}
 @media(max-width:740px){.video-matrix{min-width:1280px}.video-play-group{margin-top:14px}.video-method-row h5{font-size:19px}}
-
-.video-unavailable{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:#293035;border:1px dashed #627174;color:#b9c5c5;font-size:12px;text-align:center;padding:12px}
