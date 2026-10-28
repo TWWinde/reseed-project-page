@@ -83,7 +83,7 @@
   "FLUX.1-dev · 4-step student": "FLUX.1-dev · 四步学生模型",
   "DINOv3 diversity with 233,472 trainable bias parameters. FID decreases from 40.22 to 34.65.": "使用 233,472 个可训练偏置参数提高 DINOv3 多样性。FID 从 40.22 降至 34.65。",
   "Quality trade-offs": "质量权衡",
-  "DINO diversity and FID improve on the image models, while PickScore or HPS can decrease. For video, text alignment and dynamic degree decrease.": "在图像模型上，DINO 多样性和 FID 均有改善，但 PickScore 或 HPS 可能下降。在视频模型上，文本对齐度和运动幅度有所下降。",
+  "DINO diversity and FID improve on the image models, while PickScore or HPS can decrease. For video, text alignment and dynamic degree decrease.": "在图像模型上，DINO 多样性和 FID 均有改善，但 PickScore 或 HPS 可能下降。在视频模型上，文本对齐度和动态程度有所下降。",
   "Main ReSeed results": "ReSeed 主要实验结果",
   "Student and student + ReSeed results. Image diversity uses DINOv3; video diversity uses DINOv2.": "学生模型与加入 ReSeed 后的结果。图像多样性使用 DINOv3，视频多样性使用 DINOv2。",
   "Generator": "生成模型",
