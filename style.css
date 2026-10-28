@@ -45,7 +45,9 @@ h1 em{font-style:normal;color:var(--mint-dark)}
 .hero-tldr p>strong:not(.hero-tldr-label){font-weight:700}
 .authors{margin-top:26px;font-size:19px;font-weight:650;line-height:1.7}
 .authors span{color:var(--mint-dark);padding:0 8px}
-.affiliations{margin:8px 0 0;color:var(--ink);font-size:16px;line-height:1.7}
+.affiliations{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 20px;margin:8px 0 0;color:var(--ink);font-size:16px;line-height:1.7}
+.authors sup,.affiliations sup{color:var(--mint-dark);font-size:14px;line-height:0;vertical-align:super;font-weight:700}
+.affiliations>span{display:inline-block}
 .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:11px 18px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:650;line-height:1.5}
 .button-primary{background:var(--navy);color:#fff}.button-primary:hover{background:#174d69}
