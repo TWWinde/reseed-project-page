@@ -10,6 +10,14 @@
   <meta property="og:description" content="First-step bias adaptation for distilled image and video models.">
   <meta property="og:image" content="assets/hero-diversity.webp">
   <title>ReSeed — A First-Step Bias Restores Lost Diversity</title>
+  <meta name="citation_title" content="A First-Step Bias Restores Lost Diversity in Diffusion Model Distillation">
+  <meta name="citation_author" content="Wenwu Tang">
+  <meta name="citation_author" content="Dong Wang">
+  <meta name="citation_author" content="Yun Cheng">
+  <meta name="citation_author" content="Olga Saukh">
+  <meta name="citation_publication_date" content="2026/10/27">
+  <meta name="citation_arxiv_id" content="2610.37110">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.37110">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=20261027-no-sample-labels">
   <link rel="stylesheet" href="method-animation.css?v=20261027-matched-bias">
@@ -24,7 +32,7 @@
       <nav class="desktop-nav" aria-label="Main navigation">
         <a href="#method">Method</a><a href="#results">Results</a><a href="#examples">Examples</a><a href="#citation">Citation</a>
       </nav>
-      <a class="nav-cta" href="#results">Results <span aria-hidden="true">↗</span></a>
+      <a class="nav-cta" href="https://arxiv.org/pdf/2610.37110" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
       <details class="mobile-menu"><summary aria-label="Open menu">Menu <span aria-hidden="true">☰</span></summary><nav aria-label="Mobile navigation"><a href="#method">Method</a><a href="#results">Results</a><a href="#examples">Examples</a><a href="#citation">Citation</a></nav></details>
     </div>
   </header>
@@ -37,8 +45,7 @@
       <div class="hero-tldr" aria-label="TL;DR"><p><strong class="hero-tldr-label">TL;DR</strong> ReSeed restores diversity in distilled image and video diffusion models by training a bias adaptor for the first denoising step. The original student stays frozen, with <strong>0.002–0.004% additional trainable parameters</strong> and <strong>no extra sampling steps</strong>.</p></div>
       <div class="authors" aria-label="Authors">Wenwu Tang <span>·</span> Dong Wang <span>·</span> Yun Cheng <span>·</span> Olga Saukh</div>
       <p class="affiliations">Graz University of Technology · Swiss Data Science Center · Complexity Science Hub</p>
-      <div class="hero-actions"><a class="button button-primary" href="#method">Method <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#examples">Generated samples <span aria-hidden="true">↗</span></a></div>
-      <p class="availability"><span class="status-dot" aria-hidden="true"></span> The arXiv link will be added when available.</p>
+      <div class="hero-actions"><a class="button button-primary" href="https://arxiv.org/pdf/2610.37110" target="_blank" rel="noopener">Paper (PDF) <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://arxiv.org/abs/2610.37110" target="_blank" rel="noopener">arXiv <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#examples">Generated samples <span aria-hidden="true">↗</span></a></div>
       <figure class="hero-figure image-frame">
         <div class="figure-topline"><span>Same prompt and initial noise</span><span>SD3.5-Medium · 25 seeds</span></div>
         <a href="assets/hero-diversity.webp" target="_blank" rel="noopener" aria-label="Open the full SD3.5-Medium portrait comparison"><img src="assets/hero-diversity.webp" width="1800" height="650" alt="Three panels of 25 matched-seed portraits: a diverse teacher, a repetitive four-step DMD student, and the same student with diversity restored by ReSeed." fetchpriority="high"></a>
@@ -89,11 +96,14 @@
 
     <section id="abstract" class="section shell closing-grid"><div><h2>Summary</h2><p>Distilled diffusion models can produce similar outputs from different initial noises. ReSeed trains added bias parameters to match the teacher's first-interval velocity and applies them only during the first student step.</p><p>Experiments on SD3-Medium, SD3.5-Medium, FLUX.1-dev, and Wan2.1 show higher same-prompt feature diversity. The method keeps the original student weights frozen and uses the same number of sampling steps.</p></div><aside class="limitations"><span class="note-label">Limitations</span><ul><li>Training requires a teacher trajectory over the first denoising interval.</li><li>We evaluate flow-matching transformers. Other architectures have not been tested.</li><li>Higher feature diversity can reduce preference scores or text alignment.</li></ul></aside></section>
 
-    <section id="citation" class="section citation-section"><div class="shell citation-inner"><div><div class="section-kicker">Citation</div><h2>BibTeX</h2><p>An arXiv reference will be added when the preprint is posted.</p></div><div class="citation-code"><button id="copy-citation" class="copy-button" type="button" aria-label="Copy BibTeX citation">Copy BibTeX</button><pre><code id="bibtex">@misc{tang2026reseed,
+    <section id="citation" class="section citation-section"><div class="shell citation-inner"><div><div class="section-kicker">Citation</div><h2>BibTeX</h2><p>arXiv:2610.37110 · 2026</p></div><div class="citation-code"><button id="copy-citation" class="copy-button" type="button" aria-label="Copy BibTeX citation">Copy BibTeX</button><pre><code id="bibtex">@misc{tang2026reseed,
   title  = {A First-Step Bias Restores Lost Diversity in Diffusion Model Distillation},
   author = {Tang, Wenwu and Wang, Dong and Cheng, Yun and Saukh, Olga},
   year   = {2026},
-  note   = {Manuscript}
+  eprint = {2610.37110},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CV},
+  url    = {https://arxiv.org/abs/2610.37110}
 }</code></pre></div></div></section>
   </main>
   <footer class="site-footer"><div class="shell footer-inner"><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>ReSeed<span class="brand-dot">.</span></span></div><p>Diversity recovery for few-step diffusion models.</p><a href="#top">Back to top ↑</a></div></footer>
