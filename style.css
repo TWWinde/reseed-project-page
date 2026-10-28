@@ -30,9 +30,8 @@ button{font:inherit;cursor:pointer}
 .desktop-nav a:hover{text-decoration:underline;color:var(--mint-dark)}
 .mobile-menu{display:none}
 .hero{padding-top:64px;padding-bottom:64px;text-align:center}
-.eyebrow,.section-kicker,.step-index,.note-label,.formula-label{color:var(--mint-dark);font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:none}
-.eyebrow{display:flex;justify-content:center;align-items:center;gap:12px}
-.eyebrow-line{width:26px;height:2px;background:var(--mint-dark)}.eyebrow-separator{color:var(--mint-dark)}
+.section-kicker,.step-index,.note-label,.formula-label{color:var(--mint-dark);font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:none}
+.project-name{margin:0 auto 16px;color:var(--mint-dark);font-size:clamp(54px,6.4vw,80px);font-weight:800;line-height:1.05;letter-spacing:-.04em}
 h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.025em}
 h1{max-width:1160px;margin:20px auto 24px;font-size:clamp(36px,4.4vw,56px);line-height:1.2}
 h1 em{font-style:normal;color:var(--mint-dark)}
