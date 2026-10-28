@@ -28,8 +28,6 @@ button{font:inherit;cursor:pointer}
 .desktop-nav{display:flex;align-items:center;gap:25px;margin-left:auto}
 .desktop-nav a{font-size:16px;font-weight:650;text-decoration:none;color:var(--ink)}
 .desktop-nav a:hover{text-decoration:underline;color:var(--mint-dark)}
-.nav-cta{display:inline-flex;align-items:center;gap:12px;padding:10px 17px;background:var(--navy);color:#fff;border-radius:6px;text-decoration:none;font-size:16px;font-weight:650;white-space:nowrap}
-.nav-cta:hover{background:#174d69}
 .mobile-menu{display:none}
 .hero{padding-top:64px;padding-bottom:64px;text-align:center}
 .eyebrow,.section-kicker,.step-index,.note-label,.formula-label{color:var(--mint-dark);font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:none}
@@ -49,6 +47,8 @@ h1 em{font-style:normal;color:var(--mint-dark)}
 .authors sup,.affiliations sup{color:var(--mint-dark);font-size:14px;line-height:0;vertical-align:super;font-weight:700}
 .affiliations>span{display:inline-block}
 .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero-actions .button{gap:10px}
+.button-icon{display:block;width:20px;height:20px;fill:currentColor;flex:none}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:11px 18px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:650;line-height:1.5}
 .button-primary{background:var(--navy);color:#fff}.button-primary:hover{background:#174d69}
 .button-secondary{background:#fff;color:var(--ink);border:1px solid #8ab2a4}.button-secondary:hover{background:var(--mint)}
@@ -148,7 +148,7 @@ tbody tr:hover{background:#f0f8f2}.arrow{color:var(--mint-dark);padding:0 5px}.g
 .site-footer p{margin:0;color:#fff;font-size:15px}
 .site-footer a:last-child{margin-left:auto;color:#b5f4df;font-size:15px;white-space:nowrap}
 @media(max-width:1050px){
-  .desktop-nav{gap:18px}.nav-cta{display:none}
+  .desktop-nav{gap:18px}
   .formula-panel{grid-template-columns:1fr;gap:24px}
   .closing-grid{gap:32px}
 }
