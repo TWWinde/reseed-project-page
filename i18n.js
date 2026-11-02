@@ -12,6 +12,7 @@
   "Examples": "生成示例",
   "Citation": "引用",
   "Code": "代码",
+  "Weights": "模型权重",
   "Authors": "作者",
   "0.3374 (DMD2), 0.3358 (DFD), and 0.4290 (DMD2 + ReSeed)": "0.3374（DMD2）、0.3358（DFD）和 0.4290（DMD2 + ReSeed）",
   "ReSeed restores sample diversity in distilled diffusion models by training residual biases for the first denoising step.": "ReSeed 仅训练首个去噪步骤的残差偏置，恢复蒸馏扩散模型的生成多样性。",
