@@ -1,4 +1,4 @@
-.method-animation{overflow:hidden;border:1px solid #c6ded5;border-radius:18px;background:#f9fcfa;box-shadow:0 20px 55px rgba(19,45,61,.09)}
+.method-animation{overflow:hidden;border:1px solid #c6ded5;border-radius:18px;background:#fff;box-shadow:0 20px 55px rgba(19,45,61,.09)}
 .animation-topline{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 28px 18px}
 .animation-kicker,.animation-panel-title,.animation-target>span,.animation-loss>span{font-size:15px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;color:var(--mint-dark)}
 .animation-topline h3{margin:5px 0 0;font:700 clamp(22px,2.5vw,30px)/1.2 Georgia,serif;letter-spacing:-.035em}
