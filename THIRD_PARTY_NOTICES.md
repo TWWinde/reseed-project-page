@@ -1,5 +1,7 @@
 # Icon credits
 
+The Hugging Face logo is the official brand asset from [Hugging Face Brand Assets](https://huggingface.co/brand), stored locally as `assets/huggingface-logo.svg`.
+
 The arXiv icon is from [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/arxiv.svg), distributed under CC0 1.0 Universal.
 
 The GitHub icon is from [GitHub Octicons](https://github.com/primer/octicons/blob/main/icons/mark-github-16.svg), distributed under the MIT License:
