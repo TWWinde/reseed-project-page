@@ -93,6 +93,8 @@
   "Added parameters": "新增参数",
   "Not evaluated": "未评估",
   "Image results use the paper's COCO and same-prompt diversity protocols. Video results use 320 VBench prompts and one adapter training run.": "图像结果采用论文中的 COCO 和同提示词多样性评估方案。视频结果基于 320 条 VBench 提示词和一次适配器训练。",
+  "On device: in": "设备端：在",
+  ", ReSeed for SD3-Medium runs on the iPhone 15 Pro Neural Engine. Adding the biases takes about 0.2% of the generation time (18 ms at 512 px, about 63 ms at 1024 px).": " 中，SD3-Medium 的 ReSeed 运行在 iPhone 15 Pro 的神经网络引擎上。添加偏置约占生成时间的 0.2%（512 px 为 18 ms，1024 px 约 63 ms）。",
   "Image and video examples": "图像与视频生成示例",
   "Each column uses the same prompt and initial noise across methods. For SD3-Medium and SD3.5-Medium, we show nine of twelve seeds chosen by visual review of ReSeed image quality and variety. FLUX examples use all nine available seeds. All images are uncropped; the table above uses the full evaluation set.": "每一列中，不同方法使用相同的提示词与初始噪声。SD3-Medium 和 SD3.5-Medium 从 12 个种子中，按 ReSeed 的图像质量与多样性选取 9 个展示。FLUX 展示全部 9 个种子。所有图像均未裁剪；上方表格基于完整评估集。",
   "Image comparisons for SD3-Medium, SD3.5-Medium, and FLUX.1-dev": "SD3-Medium、SD3.5-Medium 和 FLUX.1-dev 图像对比",
