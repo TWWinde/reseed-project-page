@@ -89,7 +89,7 @@ thead th{font-size:15px;font-weight:700;color:var(--ink);background:#fff;line-he
 tbody th{font-weight:650}tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
 tbody tr:hover{background:#f0f8f2}.arrow{color:var(--mint-dark);padding:0 5px}.gain{font-weight:750;color:var(--mint-dark)}
 .table-footnote{margin:18px 0 0;max-width:1000px;color:var(--ink);font-size:16px;line-height:1.7}
-.table-footnote--emphasis{font-size:clamp(17px,1.6vw,20px);font-weight:700;line-height:1.6}
+.table-footnote--emphasis{font-size:clamp(18px,calc(1.2vw + 8px),21px);font-weight:700;line-height:1.6}
 .examples-section{background:#fff;border-block:1px solid var(--line)}
 .gallery-display,.video-results{width:min(1860px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:10px;padding:28px}
 .gallery-display{display:grid;grid-template-columns:210px minmax(0,1fr);gap:0 24px;align-items:start}
