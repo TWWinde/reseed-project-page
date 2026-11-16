@@ -20,7 +20,7 @@
   <meta name="citation_arxiv_id" content="2610.37110">
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.37110">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261102-thicker-borders">
+  <link rel="stylesheet" href="style.css?v=20261116-device-note">
   <link rel="stylesheet" href="method-animation.css?v=20261102-thicker-borders">
   <script src="analytics.js?v=20261030-private-analytics" defer></script>
   <script src="i18n.js?v=20261113-device" defer></script>
@@ -80,7 +80,7 @@
       <div class="results-intro"><div class="result-feature"><span>FLUX.1-dev · 4-step student</span><strong>+48.3%</strong><p>DINOv3 diversity with 233,472 trainable bias parameters. FID decreases from 40.22 to 34.65.</p></div><div class="result-note"><span class="note-label">Quality trade-offs</span><p>DINO diversity and FID improve on the image models, while PickScore or HPS can decrease. For video, text alignment and dynamic degree decrease.</p></div></div>
       <div class="table-scroll" role="region" aria-label="Main ReSeed results" tabindex="0"><table><caption>Student and student + ReSeed results. Image diversity uses DINOv3; video diversity uses DINOv2.</caption><thead><tr><th scope="col">Generator</th><th scope="col">DINO diversity ↑</th><th scope="col">Relative gain</th><th scope="col">FID ↓</th><th scope="col">Added parameters</th></tr></thead><tbody><tr><th scope="row">SD3-Medium</th><td>0.2142 <span class="arrow">→</span> <strong>0.2936</strong></td><td class="gain">+37.1%</td><td>37.38 <span class="arrow">→</span> <strong>33.48</strong></td><td>0.00356%</td></tr><tr><th scope="row">SD3.5-Medium</th><td>0.2356 <span class="arrow">→</span> <strong>0.3282</strong></td><td class="gain">+39.3%</td><td>32.51 <span class="arrow">→</span> <strong>29.30</strong></td><td>0.00322%</td></tr><tr><th scope="row">FLUX.1-dev</th><td>0.1575 <span class="arrow">→</span> <strong>0.2336</strong></td><td class="gain">+48.3%</td><td>40.22 <span class="arrow">→</span> <strong>34.65</strong></td><td>0.00196%</td></tr><tr><th scope="row">Wan2.1-T2V-1.3B</th><td>0.3374 <span class="arrow">→</span> <strong>0.4290</strong></td><td class="gain">+27.1%</td><td>Not evaluated</td><td>0.00325%</td></tr></tbody></table></div>
       <p class="table-footnote">Image results use the paper's COCO and same-prompt diversity protocols. Video results use 320 VBench prompts and one adapter training run.</p>
-      <p class="table-footnote">On device: in <a href="https://twwinde.github.io/mobilediffuser-project-page/#reseed" target="_blank" rel="noopener">MobileDiffuser</a>, ReSeed for SD3-Medium runs on the iPhone 15 Pro Neural Engine. Adding the biases takes about 0.2% of the generation time (18 ms at 512 px, about 63 ms at 1024 px).</p>
+      <p class="table-footnote table-footnote--emphasis">On device: in <a href="https://twwinde.github.io/mobilediffuser-project-page/#reseed" target="_blank" rel="noopener">MobileDiffuser</a>, ReSeed for SD3-Medium runs on the iPhone 15 Pro Neural Engine. Adding the biases takes about 0.2% of the generation time (18 ms at 512 px, about 63 ms at 1024 px).</p>
     </section>
 
     <section id="examples" class="section examples-section"><div class="shell">
